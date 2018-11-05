@@ -15,7 +15,7 @@ Renderer.prototype.createCanvas = function () {
 
 }
 
-Renderer.prototype.renderHTML = function* () { // !!!! Adapt this renderer to the new model !!!!
+Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the new model !!!!
 
     function renderer(str) {
         switch (str) {
@@ -46,21 +46,18 @@ Renderer.prototype.renderHTML = function* () { // !!!! Adapt this renderer to th
 
     }
 
-    var outputMat3 = "";
-    for (t = 0; t <= fSize[1]; t++) {
-        outputMat3 += "";
-        for (s = 0; s <= fSize[0]; s++) {
-            outputMat3 += " " + renderer(field[s][t]);
+    var outputMat = "";
+    for (t = 0; t <= playingField.fieldSize[1]; t++) {
+        outputMat += "";
+        for (s = 0; s <= playingField.fieldSize[0]; s++) {
+            outputMat += " " + renderer(field[s][t]);
         }
-        outputMat3 += "<br class=\"defloat\">";
+        outputMat += "<br class=\"defloat\">";
     }
 
-    if (consoleLogSwitch) {
-        console.log("field created:\n" + outputMat1 + "\n" + outputMat2);
-    }
-    else {
-        console.log("field created and rendered");
-    }
 
-    document.getElementById("playing-field").innerHTML = outputMat3;
+    console.log("field created and rendered");
+
+
+    document.getElementById("playing-field").innerHTML = outputMat;
 }

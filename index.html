@@ -6,12 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">  
   <script type="text/javascript" src="rover.js"></script>
   <script type="text/javascript" src="field.js"></script>
+  <script type="text/javascript" src="renderer.js"></script>
   <script type="text/javascript" src="game.js"></script>
   <script type="text/javascript" src="index.js"></script>
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
-<body onkeydown="keyListener()">
+<body onkeydown="game.keyListener()">
 
   <h1>Mars2043</h1>
   <p>
@@ -27,8 +28,8 @@
       <label for="obst-num">Obstacle number</label>
       <input id=obst-num type="number" style="width:30px" value="15">
       <br>
-      <label for="point-num">Point number</label>
-      <input id=point-num type="number" style="width:30px" value="25">
+      <label for="sample-num">Point number</label>
+      <input id=sample-num type="number" style="width:30px" value="25">
 
       <br><br>
       <label for="x-input">X</label>
