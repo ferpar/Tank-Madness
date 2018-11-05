@@ -28,5 +28,9 @@ Rover.prototype.shoot = function () {
 }
 
 Rover.prototype.plantMine = function () {
+
+}
+
+Rover.prototype.checkObstacles = function () {
     
 }
