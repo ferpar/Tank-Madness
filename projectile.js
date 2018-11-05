@@ -9,5 +9,9 @@ function Projectile(x, y, dir, velocity, range) {
 }
 
 Projectile.prototype.detectHit = function () {
+
+}
+
+Projectile.prototype.checkLimits = function () {
     
 }
