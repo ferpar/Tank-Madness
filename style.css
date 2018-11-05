@@ -1,3 +1,90 @@
 #canvas{
     border: solid black 1px;
 }
+
+body {
+    background: url(images/ground-mars-wallpapersv2.png);
+    background-size: cover;
+    padding-top: 20px;
+    color: hsl(131,91%,44%);
+}
+
+.square {
+    width:20px;
+    height:20px;
+    margin: 2px;
+    background-color:rgba(128,128,128,0.7);
+    float:left;
+    color: hsl(131,91%,15%);
+}
+
+.square.point{
+    color:red;
+    font-size: 250%;
+    line-height: 1px;
+}
+
+.square.p1{
+    color: blue;
+    font-weight: bolder;
+    font-size: 120%;
+}
+
+.square.p2{
+    color: purple;
+    font-weight: bolder;
+    font-size: 120%;
+}
+
+.rover-1 {
+    background-image: url(images/mars-rover-topview.jpeg);
+    background-size:cover;
+}
+
+.defloat {
+    clear:both;
+}
+
+#left-btn {
+    position: relative;
+    left: 0px;
+    top: 25px;
+    width: 30px;
+    text-align: center;
+}
+
+#backward-btn {
+    position: relative;
+    left: 0px;
+    top: 25px;
+    width: 30px;
+    text-align: center;
+}
+
+#right-btn {
+    position: relative;
+    left: 0px;
+    top: 25px;
+    width: 30px;
+    text-align: center;
+}
+
+#field-container {
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+    line-height: 20px;
+    transform: skewX(15deg);
+}
+
+#game-settings {
+    width:25%;
+}
+
+#scoreboard{
+    color:black;
+    position: absolute;
+    width:25%;
+    top:25vh;
+    left:40vw;
+}

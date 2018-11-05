@@ -14,3 +14,7 @@ Renderer.prototype.createCanvas = function () {
     document.querySelector('body canvas').setAttribute("id", "canvas");
 
 }
+
+Renderer.prototype.renderHTML = function *() {
+    
+}

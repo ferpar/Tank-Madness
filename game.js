@@ -8,8 +8,7 @@ let game = {
     init: function () {
     },
     
-
-    renderAll: function () {
+    keyListener: function(){
 
     }
 }
