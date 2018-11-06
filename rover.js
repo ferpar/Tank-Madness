@@ -1,9 +1,10 @@
-function Rover(x, y, dir) {
+function Rover(x, y, dir,name) {
 
     this.x = x
     this.y = y
     this.dir = dir
     this.score = 0
+    this.name = name
 
 }
 
@@ -61,68 +62,67 @@ Rover.prototype.turnLeft = function () { // !!!! change rover to this  !!!! chan
 
 Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
 
-    function moveForward(rover) {
 
-        if (rover["direction"] == "W" || rover["direction"] == "E") {
-            if (checkLimits(rover, "x", true, 0, fieldSize[0])) {
-                return;
-            };
-        } else {
-            if (checkLimits(rover, "y", true, 0, fieldSize[1])) {
-                return;
-            };
-        }
+    // if (this.dir === "W" || this.dir === "E") {
+    //     if (checkLimits(rover, "x", true, 0, fieldSize[0])) {
+    //         return;
+    //     };
+    // } else {
+    //     if (checkLimits(rover, "y", true, 0, fieldSize[1])) {
+    //         return;
+    //     };
+    // }
 
-        switch (rover["direction"]) {
-            case "N":
-                if (!checkObstacles(rover, true)) {
-                    field[rover.x][rover.y] = "_";
-                    rover["y"] -= 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, true) == "rover") {
-                    console.log("cannot move forward: rover ahead")
-                } else {
-                    console.log("cannot move forward: obstacle ahead");
-                }
-                break;
-            case "E":
-                if (!checkObstacles(rover, true)) {
-                    field[rover.x][rover.y] = "_";
-                    rover["x"] += 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, true) == "rover") {
-                    console.log("cannot move forward: rover ahead")
-                } else {
-                    console.log("cannot move forward: obstacle ahead");
-                }
-                break;
-            case "S":
-                if (!checkObstacles(rover, true)) {
-                    field[rover.x][rover.y] = "_";
-                    rover["y"] += 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, true) == "rover") {
-                    console.log("cannot move forward: rover ahead")
-                } else {
-                    console.log("cannot move forward: obstacle ahead");
-                }
-                break;
-            case "W":
-                if (!checkObstacles(rover, true)) {
-                    field[rover.x][rover.y] = "_";
-                    rover["x"] -= 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, true) == "rover") {
-                    console.log("cannot move forward: rover ahead")
-                } else {
-                    console.log("cannot move forward: obstacle ahead");
-                }
-                break;
-        }
-
-        console.log("Rover's new position>: [ " + rover["x"] + ", " + rover["y"] + "]");
-        rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+    switch (this.dir) {
+        case "N":
+            if (!this.checkObstacles(true)) {
+                playingField.field[this.x][this.y] = "_";
+                this.y -= 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(true) === "rover") {
+                console.log("cannot move forward: rover ahead")
+            } else {
+                console.log("cannot move forward: obstacle ahead");
+            }
+            break;
+        case "E":
+            if (!this.checkObstacles(true)) {
+                playingField.field[this.x][this.y] = "_";
+                this.x += 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(true) === "rover") {
+                console.log("cannot move forward: rover ahead")
+            } else {
+                console.log("cannot move forward: obstacle ahead");
+            }
+            break;
+        case "S":
+            if (!this.checkObstacles(true)) {
+                playingField.field[this.x][this.y] = "_";
+                this.y += 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(true) === "rover") {
+                console.log("cannot move forward: rover ahead")
+            } else {
+                console.log("cannot move forward: obstacle ahead");
+            }
+            break;
+        case "W":
+            if (!this.checkObstacles(true)) {
+                playingField.field[this.x][this.y] = "_";
+                this.x -= 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(true) === "rover") {
+                console.log("cannot move forward: rover ahead")
+            } else {
+                console.log("cannot move forward: obstacle ahead");
+            }
+            break;
     }
+
+    console.log("Rover's new position>: [ " + rover["x"] + ", " + rover["y"] + "]");
+    // rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+
 
 }
 
@@ -143,7 +143,7 @@ Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
         switch (rover["direction"]) {
             case "N":
                 if (!checkObstacles(rover, false)) {
-                    field[rover.x][rover.y] = "_";
+                    playingField.field[rover.x][rover.y] = "_";
                     rover["y"] += 1;
                     renderField(fieldSize);
                 } else if (checkObstacles(rover, false) == "rover") {
@@ -154,7 +154,7 @@ Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
                 break;
             case "E":
                 if (!checkObstacles(rover, false)) {
-                    field[rover.x][rover.y] = "_";
+                    playingField.field[rover.x][rover.y] = "_";
                     rover["x"] -= 1;
                     renderField(fieldSize);
                 } else if (checkObstacles(rover, false) == "rover") {
@@ -165,7 +165,7 @@ Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
                 break;
             case "S":
                 if (!checkObstacles(rover, false)) {
-                    field[rover.x][rover.y] = "_";
+                    playingField.field[rover.x][rover.y] = "_";
                     rover["y"] -= 1;
                     renderField(fieldSize);
                 } else if (checkObstacles(rover, false) == "rover") {
@@ -176,7 +176,7 @@ Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
                 break;
             case "W":
                 if (!checkObstacles(rover, false)) {
-                    field[rover.x][rover.y] = "_";
+                    playingField.field[rover.x][rover.y] = "_";
                     rover["x"] += 1;
                     renderField(fieldSize);
                 } else if (checkObstacles(rover, false) == "rover") {
@@ -201,7 +201,50 @@ Rover.prototype.plantMine = function () {
 
 }
 
-Rover.prototype.checkObstacles = function () {
+Rover.prototype.checkObstacles = function (sense) {
+
+    // parameters: --dir: string containing "N","E","S" or "W". --sense: boolean true --> forward sense.
+    var that = this;
+    function obstacleLogic(adjSquare) {
+        switch (adjSquare) {
+            case "X":
+                return true;
+            case ".":
+                this.score++;
+                debugger
+                document.querySelector(`#${this.name}-points`).value = this.score;
+                return false;
+            case "_":
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    if (sense) {
+        switch (this.dir) {
+            case "N":
+                return obstacleLogic(playingField.field[this.x][this.y - 1]);
+            case "E":
+                // debugger
+                return obstacleLogic(playingField.field[this.x + 1][this.y]);
+            case "S":
+                return obstacleLogic(playingField.field[this.x][this.y + 1]);
+            case "W":
+                return obstacleLogic(playingField.field[this.x - 1][this.y]);
+        }
+    } else {
+        switch (this.dir) {
+            case "N":
+                return obstacleLogic(playingField.field[this.x][this.y + 1]);
+            case "E":
+                return obstacleLogic(playingField.field[this.x - 1][this.y]);
+            case "S":
+                return obstacleLogic(playingField.field[this.x][this.y - 1]);
+            case "W":
+                return obstacleLogic(playingField.field[this.x + 1][this.y]);
+        }
+    }
 
 }
 

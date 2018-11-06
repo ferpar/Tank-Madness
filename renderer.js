@@ -96,7 +96,7 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
     for (t = 0; t <= playingField.fieldSize[1]; t++) {
         outputMat += "";
         for (s = 0; s <= playingField.fieldSize[0]; s++) {
-            outputMat += " " + renderer(field[s][t]);
+            outputMat += " " + renderer(playingField.field[s][t]);
         }
         outputMat += "<br class=\"defloat\">";
     }
@@ -118,7 +118,7 @@ Renderer.prototype.renderCanvas = function () {
         this.renderData();
 
         counter++;
-        if (counter > 500) clearInterval(intervalID);
+        if (counter > 5000) clearInterval(intervalID);
 
     }.bind(this), 1000 / 60)
 

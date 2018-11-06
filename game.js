@@ -11,12 +11,11 @@ let game = {
 
   init: function () {
     playingField.createField();
-    this.dataModel = field;
+    this.dataModel = playingField.field;
     this.renderer = new Renderer(this.dataModel);
 
     this.renderer.renderHTML();
     if (this.CanvasRenderer) this.renderer.createCanvas();
-    // this.renderer.renderBackground();
     if (this.CanvasRenderer) this.renderer.renderCanvas();
     this.keyListener();
   },
@@ -31,10 +30,12 @@ let game = {
 
       switch (event.key) {
         case "w":
-          // moveForward(rover[0]);
+          playingField.rovers[0].moveAhead();
+          console.log('R1 moved forward');
           break;
         case "ArrowUp":
-          // moveForward(rover[1]);
+          playingField.rovers[1].moveAhead();
+          console.log('R2 moved forward');
           break;
         case "s":
           // moveBackward(rover[0]);
@@ -43,19 +44,19 @@ let game = {
           // moveBackward(rover[1]);
           break;
         case "a":
-        playingField.rovers[0].turnLeft();
+          playingField.rovers[0].turnLeft();
           console.log('pressed a');
           break;
         case "ArrowLeft":
-        playingField.rovers[1].turnLeft();
+          playingField.rovers[1].turnLeft();
           console.log('pressed left arrow');
           break;
         case "d":
-        playingField.rovers[0].turnRight();
+          playingField.rovers[0].turnRight();
           console.log('pressed d');
           break;
         case "ArrowRight":
-        playingField.rovers[1].turnRight();
+          playingField.rovers[1].turnRight();
           console.log('pressed right arrow');
           break;
         case "Enter":
