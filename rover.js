@@ -120,7 +120,7 @@ Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
             break;
     }
 
-    console.log("Rover's new position>: [ " + rover["x"] + ", " + rover["y"] + "]");
+    console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
     // rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
 
 
@@ -205,14 +205,14 @@ Rover.prototype.checkObstacles = function (sense) {
 
     // parameters: --dir: string containing "N","E","S" or "W". --sense: boolean true --> forward sense.
     var that = this;
+
     function obstacleLogic(adjSquare) {
         switch (adjSquare) {
             case "X":
                 return true;
             case ".":
-                this.score++;
-                debugger
-                document.querySelector(`#${this.name}-points`).value = this.score;
+                that.score++;
+                document.querySelector(`#${that.name}-points`).value = that.score;
                 return false;
             case "_":
                 return false;
