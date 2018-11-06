@@ -28,7 +28,7 @@ let playingField = {
 
         // Here the position of the Rover will be rendered on the field.
         // ===========================
-        var rover1 = new Rover(0, 0, "N");
+        var rover1 = new Rover(0, 0, "W");
         this.rovers.push(rover1);
         field[rover1.x][rover1.y] = rover1.dir;
         // Here the position of the second Rover will be rendered on the field.

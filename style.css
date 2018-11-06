@@ -69,7 +69,7 @@ body {
     text-align: center;
 }
 
-#field-container {
+#field-container  {
     width: fit-content;
     margin: auto;
     text-align: center;
@@ -77,14 +77,19 @@ body {
     transform: skewX(15deg);
 }
 
+#game-board {
+    width: fit-content;
+    margin: auto;
+}
+
 #game-settings {
     width:25%;
 }
 
 #scoreboard{
-    color:black;
+    color: hsl(131,91%,44%);
     position: absolute;
     width:25%;
-    top:25vh;
+    top:5vh;
     left:40vw;
 }

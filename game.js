@@ -5,14 +5,19 @@ let game = {
   fps: 60,
   dataModel: [],
   renderer: null,
+  HTMLRenderer: true,
+  CanvasRenderer: false,
 
 
   init: function () {
     playingField.createField();
     this.dataModel = field;
-    // debugger
     this.renderer = new Renderer(this.dataModel);
+
     this.renderer.renderHTML();
+    if (this.CanvasRenderer) this.renderer.createCanvas();
+    // this.renderer.renderBackground();
+    if (this.CanvasRenderer) this.renderer.renderCanvas();
     this.keyListener();
   },
 
