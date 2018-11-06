@@ -13,41 +13,50 @@ let game = {
     // debugger
     this.renderer = new Renderer(this.dataModel);
     this.renderer.renderHTML();
+    this.keyListener();
   },
 
   keyListener: function () {
 
-    var key = event.key;
+    console.log('entra');
 
-    switch (key) {
-      case "w":
-        // moveForward(Rover);
-        break;
-      case "ArrowUp":
-        // moveForward(Rover2);
-        break;
-      case "s":
-        // moveBackward(Rover);
-        break;
-      case "ArrowDown":
-        // moveBackward(Rover2);
-        break;
-      case "a":
-        // turnLeft(Rover);
-        break;
-      case "ArrowLeft":
-        // turnLeft(Rover2);
-        break;
-      case "d":
-        // turnRight(Rover);
-        break;
-      case "ArrowRight":
-        // turnRight(Rover2);
-        break;
-      case "Enter":
-        // createFieldButton();
-        break;
-    }
+    document.onkeydown = function (event) {
 
+      console.log('entra tb');
+
+      switch (event.key) {
+        case "w":
+          // moveForward(rover[0]);
+          break;
+        case "ArrowUp":
+          // moveForward(rover[1]);
+          break;
+        case "s":
+          // moveBackward(rover[0]);
+          break;
+        case "ArrowDown":
+          // moveBackward(rover[1]);
+          break;
+        case "a":
+        playingField.rovers[0].turnLeft();
+          console.log('pressed a');
+          break;
+        case "ArrowLeft":
+        playingField.rovers[1].turnLeft();
+          console.log('pressed left arrow');
+          break;
+        case "d":
+        playingField.rovers[0].turnRight();
+          console.log('pressed d');
+          break;
+        case "ArrowRight":
+        playingField.rovers[1].turnRight();
+          console.log('pressed right arrow');
+          break;
+        case "Enter":
+          // createFieldButton();
+          break;
+      }
+    }.bind(this)
   }
 }

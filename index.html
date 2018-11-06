@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
-<body onkeydown="game.keyListener()">
+<body>
 
   <h1>Mars2043</h1>
   <p>
@@ -26,10 +26,10 @@
       <legend>Game settings:</legend>
 
       <label for="obst-num">Obstacle number</label>
-      <input id=obst-num type="number" style="width:30px" value="15">
+      <input id="obst-num" type="number" style="width:30px" value="15">
       <br>
       <label for="sample-num">Point number</label>
-      <input id=sample-num type="number" style="width:30px" value="25">
+      <input id="sample-num" type="number" style="width:30px" value="25">
 
       <br><br>
       <label for="x-input">X</label>
@@ -45,9 +45,9 @@
   <fieldset id="scoreboard">
       <legend>SCORE:</legend>
     <label for="Rover-points">P1 POINTS</label>
-    <input id=Rover-points type="number" style="width:30px" value="0">
+    <input id="Rover-points" type="number" style="width:30px" value="0">
     <label for="Rover2-points">P2 POINTS</label>
-    <input id=Rover2-points type="number" style="width:30px" value="0">
+    <input id="Rover2-points" type="number" style="width:30px" value="0">
   </fieldset>
 
   <div id="game-board"></div>

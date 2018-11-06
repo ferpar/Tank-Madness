@@ -82,5 +82,10 @@ let playingField = {
 
     updateAll: function () {
 
+        field[playingField.rovers[0].x][playingField.rovers[0].y] = playingField.rovers[0].dir;
+        field[playingField.rovers[1].x][playingField.rovers[1].y] = playingField.rovers[1].dir + "2";
+
+        game.renderer.renderHTML();
+
     }
 }

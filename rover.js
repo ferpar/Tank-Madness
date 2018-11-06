@@ -9,53 +9,53 @@ function Rover(x, y, dir) {
 
 Rover.prototype.turnRight = function () { // !!!! change rover to this  !!!! change "direction" to "dir" !!!!
 
-    switch (rover["direction"]) {
+    switch (this.dir) {
         case "N":
-            rover["direction"] = "E";
-            // renderField(fieldSize);
+            this.dir = "E";
+            playingField.updateAll();
             break;
         case "E":
-            rover["direction"] = "S";
-            // renderField(fieldSize);
+            this.dir = "S";
+            playingField.updateAll();
             break;
         case "S":
-            rover["direction"] = "W";
-            // renderField(fieldSize);
+            this.dir = "W";
+            playingField.updateAll();
             break;
         case "W":
-            rover["direction"] = "N";
-            // renderField(fieldSize);
+            this.dir = "N";
+            playingField.updateAll();
             break;
     }
 
-    console.log("New Rover Direction: " + rover["direction"]);
-    rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+    console.log("New Rover Direction: " + this.dir);
+    // rover["travelLog"].push([this.dir, this.x, this.y]);
 
 }
 
 Rover.prototype.turnLeft = function () { // !!!! change rover to this  !!!! change "direction" to "dir" !!!!
 
-    switch (rover["direction"]) {
+    switch (this.dir) {
         case "N":
-            rover["direction"] = "W";
-            renderField(fieldSize);
+            this.dir = "W";
+            playingField.updateAll();
             break;
         case "E":
-            rover["direction"] = "N";
-            renderField(fieldSize);
+            this.dir = "N";
+            playingField.updateAll();
             break;
         case "S":
-            rover["direction"] = "E";
-            renderField(fieldSize);
+            this.dir = "E";
+            playingField.updateAll();
             break;
         case "W":
-            rover["direction"] = "S";
-            renderField(fieldSize);
+            this.dir = "S";
+            playingField.updateAll();
             break;
     }
 
-    console.log("New Rover Direction: " + rover["direction"]);
-    rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+    console.log("New Rover Direction: " + this.dir);
+    // rover["travelLog"].push([this.dir, this.x, this.y]);
 
 }
 
