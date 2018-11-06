@@ -63,16 +63,6 @@ Rover.prototype.turnLeft = function () { // !!!! change rover to this  !!!! chan
 Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
 
 
-    // if (this.dir === "W" || this.dir === "E") {
-    //     if (checkLimits(rover, "x", true, 0, fieldSize[0])) {
-    //         return;
-    //     };
-    // } else {
-    //     if (checkLimits(rover, "y", true, 0, fieldSize[1])) {
-    //         return;
-    //     };
-    // }
-
     switch (this.dir) {
         case "N":
             if (!this.checkObstacles(true)) {
@@ -128,17 +118,6 @@ Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
 
 Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
 
-
-
-    // if (this.dir == "W" || this.dir == "E") {
-    //     if (checkLimits(rover, "x", false, 0, fieldSize[0])) {
-    //         return;
-    //     };
-    // } else {
-    //     if (checkLimits(rover, "y", false, 0, fieldSize[1])) {
-    //         return;
-    //     };
-    // }
 
     switch (this.dir) {
         case "N":
@@ -216,6 +195,8 @@ Rover.prototype.checkObstacles = function (sense) {
                 return false;
             case "_":
                 return false;
+            case undefined:
+                return true;
             default:
                 return true;
         }
@@ -226,65 +207,39 @@ Rover.prototype.checkObstacles = function (sense) {
             case "N":
                 return obstacleLogic(playingField.field[this.x][this.y - 1]);
             case "E":
-                // debugger
-                return obstacleLogic(playingField.field[this.x + 1][this.y]);
+                try { return obstacleLogic(playingField.field[this.x + 1][this.y]); }
+                catch (error) {
+                    console.log('field limit reached');
+                    return "undefined"
+                }
+
             case "S":
                 return obstacleLogic(playingField.field[this.x][this.y + 1]);
             case "W":
-                return obstacleLogic(playingField.field[this.x - 1][this.y]);
+                try{return obstacleLogic(playingField.field[this.x - 1][this.y]);}
+                catch (error) {
+                    console.log('field limit reached');
+                    return "undefined"
+                }
         }
     } else {
         switch (this.dir) {
             case "N":
                 return obstacleLogic(playingField.field[this.x][this.y + 1]);
             case "E":
-                return obstacleLogic(playingField.field[this.x - 1][this.y]);
+                try{return obstacleLogic(playingField.field[this.x - 1][this.y]);}
+                catch (error) {
+                    console.log('field limit reached');
+                    return "undefined"
+                }
             case "S":
                 return obstacleLogic(playingField.field[this.x][this.y - 1]);
             case "W":
-                return obstacleLogic(playingField.field[this.x + 1][this.y]);
-        }
-    }
-
-}
-
-Rover.prototype.checkLimits = function () { // !!!! Adapt to this object !!!!
-
-    function checkLimits(rover, axis, sense, lowerLimit, upperLimit) {
-        /* This functions takes the movement axis and a boolean parameter for the sense of movement: True = forward or False = backward.
-           Then, both the upper and lower limits of the grid must be given (i.e.: 0 and 9).
-           It returns true if a limit has been reached.*/
-
-        if (sense == true) {
-            switch (rover[axis]) {
-                case lowerLimit:
-                    if (this.dir == "W" || (this.dir == "N")) {
-                        console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
-                        return true
-                    }
-                    break;
-                case upperLimit:
-                    if (this.dir == "E" || (this.dir == "S")) {
-                        console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
-                        return true
-                    }
-                    break;
-            }
-        } else {
-            switch (rover[axis]) {
-                case upperLimit:
-                    if (this.dir == "W" || (this.dir == "N")) {
-                        console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
-                        return true
-                    }
-                    break;
-                case lowerLimit:
-                    if (this.dir == "E" || (this.dir == "S")) {
-                        console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
-                        return true
-                    }
-                    break;
-            }
+                try{return obstacleLogic(playingField.field[this.x + 1][this.y]);}
+                catch (error) {
+                    console.log('field limit reached');
+                    return "undefined"
+                }
         }
     }
 

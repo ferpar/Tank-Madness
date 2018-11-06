@@ -5,8 +5,8 @@ let game = {
   fps: 60,
   dataModel: [],
   renderer: null,
-  HTMLRenderer: true,
-  CanvasRenderer: false,
+  HTMLRenderer: false,
+  CanvasRenderer: true,
 
 
   init: function () {

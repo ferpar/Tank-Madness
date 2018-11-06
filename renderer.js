@@ -53,8 +53,8 @@ Renderer.prototype.createCanvas = function () {
     document.querySelector('body canvas').setAttribute("id", "canvas");
     this.canvas = document.querySelector('body canvas');
     this.ctx = this.canvas.getContext('2d');
-    this.tileW = this.canvas.width / playingField.fieldSize[0]  //TileWidth
-    this.tileH = this.canvas.height / playingField.fieldSize[1] //TileHeight
+    this.tileW = this.canvas.width / (playingField.fieldSize[0] + 1)  //TileWidth
+    this.tileH = this.canvas.height / (playingField.fieldSize[1] + 1) //TileHeight
 
 }
 
@@ -120,7 +120,7 @@ Renderer.prototype.renderCanvas = function () {
         counter++;
         if (counter > 5000) clearInterval(intervalID);
 
-    }.bind(this), 1000 / 60)
+    }.bind(this), 1000 / game.fps)
 
 }
 
@@ -180,8 +180,8 @@ Renderer.prototype.renderData = function () {
     // debugger
     // this.ctx.drawImage(this.obstImg,100,100,100,100);
 
-    for (i = 0; i < playingField.fieldSize[0]; i++) {
-        for (j = 0; j < playingField.fieldSize[1]; j++) {
+    for (i = 0; i < playingField.fieldSize[0]+1; i++) {
+        for (j = 0; j < playingField.fieldSize[1]+1; j++) {
             if (rendererC(this.dataModel[i][j]) !== false) {
                 this.ctx.drawImage(rendererC(this.dataModel[i][j]), i * this.tileW, j * this.tileH, this.tileW, this.tileH);
             }
