@@ -10,7 +10,7 @@ let game = {
   init: function () {
     playingField.createField();
     this.dataModel = field;
-    debugger
+    // debugger
     this.renderer = new Renderer(this.dataModel);
     this.renderer.renderHTML();
   },
