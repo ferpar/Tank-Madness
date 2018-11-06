@@ -1,4 +1,4 @@
-function Rover(x, y, dir,name) {
+function Rover(x, y, dir, name) {
 
     this.x = x
     this.y = y
@@ -121,75 +121,75 @@ Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
     }
 
     console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
-    // rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+    // rover["travelLog"].push([this.dir, this.x, this.y]);
 
 
 }
 
 Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
 
-    function moveBackward(rover) {
 
-        if (rover["direction"] == "W" || rover["direction"] == "E") {
-            if (checkLimits(rover, "x", false, 0, fieldSize[0])) {
-                return;
-            };
-        } else {
-            if (checkLimits(rover, "y", false, 0, fieldSize[1])) {
-                return;
-            };
-        }
 
-        switch (rover["direction"]) {
-            case "N":
-                if (!checkObstacles(rover, false)) {
-                    playingField.field[rover.x][rover.y] = "_";
-                    rover["y"] += 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, false) == "rover") {
-                    console.log("cannot move backwards: rover behind")
-                } else {
-                    console.log("cannot move rearwards: obstacle behind");
-                }
-                break;
-            case "E":
-                if (!checkObstacles(rover, false)) {
-                    playingField.field[rover.x][rover.y] = "_";
-                    rover["x"] -= 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, false) == "rover") {
-                    console.log("cannot move backwards: rover behind")
-                } else {
-                    console.log("cannot move rearwards: obstacle behind");
-                }
-                break;
-            case "S":
-                if (!checkObstacles(rover, false)) {
-                    playingField.field[rover.x][rover.y] = "_";
-                    rover["y"] -= 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, false) == "rover") {
-                    console.log("cannot move backwards: rover behind")
-                } else {
-                    console.log("cannot move rearwards: obstacle behind");
-                }
-                break;
-            case "W":
-                if (!checkObstacles(rover, false)) {
-                    playingField.field[rover.x][rover.y] = "_";
-                    rover["x"] += 1;
-                    renderField(fieldSize);
-                } else if (checkObstacles(rover, false) == "rover") {
-                    console.log("cannot move backwards: rover behind")
-                } else {
-                    console.log("cannot move rearwards: obstacle behind");
-                }
-                break;
-        }
+    // if (this.dir == "W" || this.dir == "E") {
+    //     if (checkLimits(rover, "x", false, 0, fieldSize[0])) {
+    //         return;
+    //     };
+    // } else {
+    //     if (checkLimits(rover, "y", false, 0, fieldSize[1])) {
+    //         return;
+    //     };
+    // }
 
-        console.log("Rover's new position>: [ " + rover["x"] + ", " + rover["y"] + "]");
-        rover["travelLog"].push([rover["direction"], rover["x"], rover["y"]]);
+    switch (this.dir) {
+        case "N":
+            if (!this.checkObstacles(false)) {
+                playingField.field[this.x][this.y] = "_";
+                this.y += 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(false) == "rover") {
+                console.log("cannot move backwards: rover behind")
+            } else {
+                console.log("cannot move rearwards: obstacle behind");
+            }
+            break;
+        case "E":
+            if (!this.checkObstacles(false)) {
+                playingField.field[this.x][this.y] = "_";
+                this.x -= 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(false) == "rover") {
+                console.log("cannot move backwards: rover behind")
+            } else {
+                console.log("cannot move rearwards: obstacle behind");
+            }
+            break;
+        case "S":
+            if (!this.checkObstacles(false)) {
+                playingField.field[this.x][this.y] = "_";
+                this.y -= 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(false) == "rover") {
+                console.log("cannot move backwards: rover behind")
+            } else {
+                console.log("cannot move rearwards: obstacle behind");
+            }
+            break;
+        case "W":
+            if (!this.checkObstacles(false)) {
+                playingField.field[this.x][this.y] = "_";
+                this.x += 1;
+                playingField.updateAll();
+            } else if (this.checkObstacles(false) == "rover") {
+                console.log("cannot move backwards: rover behind")
+            } else {
+                console.log("cannot move rearwards: obstacle behind");
+            }
+            break;
     }
+
+    console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
+    // rover["travelLog"].push([this.dir, this.x, this.y]);
+
 
 }
 
@@ -258,13 +258,13 @@ Rover.prototype.checkLimits = function () { // !!!! Adapt to this object !!!!
         if (sense == true) {
             switch (rover[axis]) {
                 case lowerLimit:
-                    if (rover["direction"] == "W" || (rover["direction"] == "N")) {
+                    if (this.dir == "W" || (this.dir == "N")) {
                         console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
                         return true
                     }
                     break;
                 case upperLimit:
-                    if (rover["direction"] == "E" || (rover["direction"] == "S")) {
+                    if (this.dir == "E" || (this.dir == "S")) {
                         console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
                         return true
                     }
@@ -273,13 +273,13 @@ Rover.prototype.checkLimits = function () { // !!!! Adapt to this object !!!!
         } else {
             switch (rover[axis]) {
                 case upperLimit:
-                    if (rover["direction"] == "W" || (rover["direction"] == "N")) {
+                    if (this.dir == "W" || (this.dir == "N")) {
                         console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
                         return true
                     }
                     break;
                 case lowerLimit:
-                    if (rover["direction"] == "E" || (rover["direction"] == "S")) {
+                    if (this.dir == "E" || (this.dir == "S")) {
                         console.log("field limit reached, cannot move further.\n\n\t" + rover["travelLog"][rover["travelLog"].length - 1])
                         return true
                     }

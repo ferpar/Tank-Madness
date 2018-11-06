@@ -26,8 +26,6 @@ let game = {
 
     document.onkeydown = function (event) {
 
-      console.log('entra tb');
-
       switch (event.key) {
         case "w":
           playingField.rovers[0].moveAhead();
@@ -38,10 +36,12 @@ let game = {
           console.log('R2 moved forward');
           break;
         case "s":
-          // moveBackward(rover[0]);
+          playingField.rovers[0].moveBack();
+          console.log('R1 moved backward');
           break;
         case "ArrowDown":
-          // moveBackward(rover[1]);
+          playingField.rovers[1].moveBack();
+          console.log('R2 moved backward');
           break;
         case "a":
           playingField.rovers[0].turnLeft();
