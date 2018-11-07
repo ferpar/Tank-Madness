@@ -7,6 +7,7 @@ function Rover(x, y, dir, name) {
     this.name = name
     this.disabled = false
     this.mine = null;
+    this.mineScore = 5;
 
 }
 
@@ -62,6 +63,7 @@ Rover.prototype.turnLeft = function () {
 
 Rover.prototype.moveAhead = function () {
 
+    if (this.disabled === true) return
 
     switch (this.dir) {
         case "N":
@@ -118,6 +120,7 @@ Rover.prototype.moveAhead = function () {
 
 Rover.prototype.moveBack = function () {
 
+    if (this.disabled === true) return
 
     switch (this.dir) {
         case "N":
@@ -206,12 +209,40 @@ Rover.prototype.checkObstacles = function (sense) {
                     return (sample.x === obstPos[0] && sample.y === obstPos[1])
                 });
                 playingField.samples.splice(sampIndex, 1);
-                console.log(playingField.samples.length);
+                // console.log(playingField.samples.length);
                 return false;
             case "_":
                 return false;
             case undefined:
                 return true;
+            case "m":
+
+                var mineIndex = playingField.mines.findIndex(function (mine) {
+                    return (mine.x === obstPos[0] && mine.y === obstPos[1])
+                });
+
+                that.disabled = true;
+
+                debugger
+
+                that.score -= that.mineScore;
+                document.querySelector(`#${that.name}-points`).value = that.score;
+
+                var ownerName = playingField.mines[mineIndex].owner;
+                var ownerIndex = playingField.rovers.findIndex((owner) => owner.name === ownerName);
+                var mineOwner = playingField.rovers[ownerIndex];
+                debugger
+                mineOwner.score += that.mineScore;
+                document.querySelector(`#${ownerName}-points`).value = mineOwner.score;
+
+                playingField.mines.splice(mineIndex, 1);
+
+
+
+                setTimeout(() => { that.disabled = false }, 3000);
+
+                return false;
+
             default:
                 return true;
         }

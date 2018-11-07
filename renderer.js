@@ -42,6 +42,9 @@ function Renderer(dataModel) {
     this.tank2EImg = new Image()
     this.tank2EImg.src = "./images/tank2E.svg"
 
+    this.mineImg = new Image()    
+    this.mineImg.src = "./images/mine.svg"
+
 
 }
 
@@ -177,6 +180,9 @@ Renderer.prototype.renderData = function () {
             case "W2":
                 return that.tank2WImg;
             // return "<div class=\"square p2\"><=</div>";
+            case "m":
+                return that.mineImg;
+                // return "<div class=\"square \">m</div>";
             default:
                 return false;
 
