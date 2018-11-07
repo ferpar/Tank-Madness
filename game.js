@@ -27,6 +27,8 @@ let game = {
     if (this.CanvasRenderer) this.renderer.stopCanvasRender();
     //manage all collections: rovers remain, samples and obstacles are
     playingField.field=[];
+    playingField.obstacles=[];
+    playingField.samples=[];
     //reinitialize
     this.init();
   },

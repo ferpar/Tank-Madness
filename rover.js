@@ -185,13 +185,21 @@ Rover.prototype.checkObstacles = function (sense) {
     // parameters: --dir: string containing "N","E","S" or "W". --sense: boolean true --> forward sense.
     var that = this;
 
-    function obstacleLogic(adjSquare) {
+    function obstacleLogic(adjSquare, obstPos) {
         switch (adjSquare) {
             case "X":
                 return true;
             case ".":
                 that.score++;
                 document.querySelector(`#${that.name}-points`).value = that.score;
+
+                //code to remove sample from collection
+                // debugger
+                var sampIndex = playingField.samples.findIndex(function (sample) {
+                    return (sample.x === obstPos[0] && sample.y === obstPos[1])
+                });
+                playingField.samples.splice(sampIndex, 1);
+                console.log(playingField.samples.length);
                 return false;
             case "_":
                 return false;
@@ -205,18 +213,18 @@ Rover.prototype.checkObstacles = function (sense) {
     if (sense) {
         switch (this.dir) {
             case "N":
-                return obstacleLogic(playingField.field[this.x][this.y - 1]);
+                return obstacleLogic(playingField.field[this.x][this.y - 1], [this.x, this.y - 1]);
             case "E":
-                try { return obstacleLogic(playingField.field[this.x + 1][this.y]); }
+                try { return obstacleLogic(playingField.field[this.x + 1][this.y], [this.x + 1, this.y]); }
                 catch (error) {
                     console.log('field limit reached');
                     return "undefined"
                 }
 
             case "S":
-                return obstacleLogic(playingField.field[this.x][this.y + 1]);
+                return obstacleLogic(playingField.field[this.x][this.y + 1], [this.x, this.y + 1]);
             case "W":
-                try{return obstacleLogic(playingField.field[this.x - 1][this.y]);}
+                try { return obstacleLogic(playingField.field[this.x - 1][this.y], [this.x - 1, this.y]); }
                 catch (error) {
                     console.log('field limit reached');
                     return "undefined"
@@ -225,17 +233,17 @@ Rover.prototype.checkObstacles = function (sense) {
     } else {
         switch (this.dir) {
             case "N":
-                return obstacleLogic(playingField.field[this.x][this.y + 1]);
+                return obstacleLogic(playingField.field[this.x][this.y + 1], [this.x, this.y + 1]);
             case "E":
-                try{return obstacleLogic(playingField.field[this.x - 1][this.y]);}
+                try { return obstacleLogic(playingField.field[this.x - 1][this.y], [this.x - 1, this.y]); }
                 catch (error) {
                     console.log('field limit reached');
                     return "undefined"
                 }
             case "S":
-                return obstacleLogic(playingField.field[this.x][this.y - 1]);
+                return obstacleLogic(playingField.field[this.x][this.y - 1], [this.x, this.y - 1]);
             case "W":
-                try{return obstacleLogic(playingField.field[this.x + 1][this.y]);}
+                try { return obstacleLogic(playingField.field[this.x + 1][this.y], [this.x + 1, this.y]); }
                 catch (error) {
                     console.log('field limit reached');
                     return "undefined"
