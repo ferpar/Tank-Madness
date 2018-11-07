@@ -5,6 +5,7 @@ function Renderer(dataModel) {
     this.ctx = null
 
     this.intervalID = 0
+    this.counter = 0
 
     this.tileW = null
     this.tileH = null
@@ -42,10 +43,12 @@ function Renderer(dataModel) {
     this.tank2EImg = new Image()
     this.tank2EImg.src = "./images/tank2E.svg"
 
-    this.mineImg = new Image()    
+    this.mineImg = new Image()
     this.mineImg.src = "./images/mine.svg"
 
-
+    this.xplImg = new Image()
+    this.xplImg.src = "./images/explosion_spr.svg"
+    this.xplImg.frames = 5;
 }
 
 Renderer.prototype.createCanvas = function () {
@@ -93,7 +96,7 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
                 case "W2":
                     return "<div class=\"square p2\"><=</div>";
                 case "m":
-                return "<div class=\"square \">m</div>";
+                    return "<div class=\"square \">m</div>";
 
             }
 
@@ -118,16 +121,17 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
 }
 
 Renderer.prototype.renderCanvas = function () {
-    var counter = 0;
+
 
 
     this.intervalID = setInterval(function () {
 
         this.renderBackground();
         this.renderData();
+        this.renderExplosion(3, 4);
 
-        counter++;
-        if (counter > 5000) clearInterval(this.intervalID);
+        this.counter++;
+        if (this.counter > 5000) clearInterval(this.intervalID);
 
     }.bind(this), 1000 / game.fps)
 
@@ -182,7 +186,7 @@ Renderer.prototype.renderData = function () {
             // return "<div class=\"square p2\"><=</div>";
             case "m":
                 return that.mineImg;
-                // return "<div class=\"square \">m</div>";
+            // return "<div class=\"square \">m</div>";
             default:
                 return false;
 
@@ -200,10 +204,52 @@ Renderer.prototype.renderData = function () {
         }
     }
 
+}
 
-    Renderer.prototype.stopCanvasRender = function () {
-        clearInterval(this.intervalID);
-        document.querySelector('#game-board').removeChild(this.canvas);
-    }
+Renderer.prototype.stopCanvasRender = function () {
+    clearInterval(this.intervalID);
+    document.querySelector('#game-board').removeChild(this.canvas);
+}
+
+// Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
+//     var xplCounter = 0;
+//     var xplInterval = setInterval(function () {
+//         xplCounter++;
+//         // debugger
+//         this.ctx.drawImage(
+//             this.xplImg,
+//             xplCounter * Math.floor(this.xplImg.width / this.xplImg.frames),
+//             0,
+//             Math.floor(this.xplImg.width / this.xplImg.frames),
+//             this.xplImg.height,
+//             this.xCoord,
+//             this.yCoord,
+//             playingField.tileW,
+//             playingField.tileH,
+//         );
+//     }.bind(this), 250)
+
+//     setTimeout(function () {
+//         clearInterval(xplInterval);
+//     }.bind(this), 1250);
+
+// }
+
+Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
+    // debugger
+    this.ctx.drawImage(
+        this.xplImg,
+        Math.floor((this.counter % 50) / 10) * 65,
+        0,
+        65,
+        65,
+        xCoord * this.tileW,
+        yCoord * this.tileH,
+        this.tileW * 1,
+        this.tileH * 1,
+    );
+}
+
+Renderer.prototype.renderShell = function () {
 
 }

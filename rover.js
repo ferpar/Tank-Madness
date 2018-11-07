@@ -8,6 +8,7 @@ function Rover(x, y, dir, name) {
     this.disabled = false
     this.mine = null;
     this.mineScore = 5;
+    this.mineCost= 2;
 
 }
 
@@ -185,6 +186,8 @@ Rover.prototype.plantMine = function () {
     setTimeout(function () {
         playingField.mines.push(this.mine);
         console.log(`planted mine @ [${this.x},${this.y}]`);
+        this.score-=this.mineCost;
+        document.querySelector(`#${this.name}-points`).value = this.score;
         playingField.updateAll();
     }.bind(this), 1500)
 }
