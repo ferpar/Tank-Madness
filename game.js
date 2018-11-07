@@ -82,6 +82,12 @@ let game = {
         case "Enter":
           // createFieldButton();
           break;
+        case "1":
+          // debugger
+          playingField.rovers[0].plantMine();
+          break;
+        case "m":
+          playingField.rovers[1].plantMine();
       }
     }.bind(this)
   }

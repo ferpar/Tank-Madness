@@ -63,49 +63,55 @@ Renderer.prototype.createCanvas = function () {
 
 Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the new model !!!!
 
-    function renderer(str) {
-        switch (str) {
-            case "_":
-                return "<div class=\"square\"></div>";
-            case ".":
-                return "<div class=\"square point\">.</div>";
-            case "X":
-                return "<div class=\"square obstacle\">X</div>";
-            case "N":
-                return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\">=></div>";
-            case "E":
-                return "<div class=\"square p1\">=></div>";
-            case "S":
-                return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\"><=</div>";
-            case "W":
-                return "<div class=\"square p1\"><=</div>";
-            case "N2":
-                return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\">=></div>";
-            case "E2":
-                return "<div class=\"square p2\">=></div>";
-            case "S2":
-                return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\"><=</div>";
-            case "W2":
-                return "<div class=\"square p2\"><=</div>";
+    if (!game.CanvasRenderer) {
+
+        function renderer(str) {
+            switch (str) {
+                case "_":
+                    return "<div class=\"square\"></div>";
+                case ".":
+                    return "<div class=\"square point\">.</div>";
+                case "X":
+                    return "<div class=\"square obstacle\">X</div>";
+                case "N":
+                    return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\">=></div>";
+                case "E":
+                    return "<div class=\"square p1\">=></div>";
+                case "S":
+                    return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\"><=</div>";
+                case "W":
+                    return "<div class=\"square p1\"><=</div>";
+                case "N2":
+                    return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\">=></div>";
+                case "E2":
+                    return "<div class=\"square p2\">=></div>";
+                case "S2":
+                    return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\"><=</div>";
+                case "W2":
+                    return "<div class=\"square p2\"><=</div>";
+                case "m":
+                return "<div class=\"square \">m</div>";
+
+            }
 
         }
 
-    }
-
-    var outputMat = "";
-    for (t = 0; t <= playingField.fieldSize[1]; t++) {
-        outputMat += "";
-        for (s = 0; s <= playingField.fieldSize[0]; s++) {
-            outputMat += " " + renderer(playingField.field[s][t]);
+        var outputMat = "";
+        for (t = 0; t <= playingField.fieldSize[1]; t++) {
+            outputMat += "";
+            for (s = 0; s <= playingField.fieldSize[0]; s++) {
+                outputMat += " " + renderer(playingField.field[s][t]);
+            }
+            outputMat += "<br class=\"defloat\">";
         }
-        outputMat += "<br class=\"defloat\">";
+
+
+        console.log("field created and rendered");
+
+
+        document.getElementById("playing-field").innerHTML = outputMat;
+
     }
-
-
-    console.log("field created and rendered");
-
-
-    document.getElementById("playing-field").innerHTML = outputMat;
 }
 
 Renderer.prototype.renderCanvas = function () {

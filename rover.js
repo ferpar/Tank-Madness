@@ -5,10 +5,12 @@ function Rover(x, y, dir, name) {
     this.dir = dir
     this.score = 0
     this.name = name
+    this.disabled = false
+    this.mine = null;
 
 }
 
-Rover.prototype.turnRight = function () { // !!!! change rover to this  !!!! change "direction" to "dir" !!!!
+Rover.prototype.turnRight = function () {
 
     switch (this.dir) {
         case "N":
@@ -30,11 +32,10 @@ Rover.prototype.turnRight = function () { // !!!! change rover to this  !!!! cha
     }
 
     console.log("New Rover Direction: " + this.dir);
-    // rover["travelLog"].push([this.dir, this.x, this.y]);
 
 }
 
-Rover.prototype.turnLeft = function () { // !!!! change rover to this  !!!! change "direction" to "dir" !!!!
+Rover.prototype.turnLeft = function () {
 
     switch (this.dir) {
         case "N":
@@ -56,11 +57,10 @@ Rover.prototype.turnLeft = function () { // !!!! change rover to this  !!!! chan
     }
 
     console.log("New Rover Direction: " + this.dir);
-    // rover["travelLog"].push([this.dir, this.x, this.y]);
 
 }
 
-Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
+Rover.prototype.moveAhead = function () {
 
 
     switch (this.dir) {
@@ -111,12 +111,12 @@ Rover.prototype.moveAhead = function () { // !!!! Adapt to new model !!!!
     }
 
     console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
-    // rover["travelLog"].push([this.dir, this.x, this.y]);
+
 
 
 }
 
-Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
+Rover.prototype.moveBack = function () {
 
 
     switch (this.dir) {
@@ -167,7 +167,7 @@ Rover.prototype.moveBack = function () { // !!!! Adapt to new model !!!!
     }
 
     console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
-    // rover["travelLog"].push([this.dir, this.x, this.y]);
+
 
 
 }
@@ -177,12 +177,19 @@ Rover.prototype.shoot = function () {
 }
 
 Rover.prototype.plantMine = function () {
-
+    this.mine = new Mine(this.x, this.y, 1, this.name);
+    // debugger
+    setTimeout(function () {
+        playingField.mines.push(this.mine);
+        console.log(`planted mine @ [${this.x},${this.y}]`);
+        playingField.updateAll();
+    }.bind(this), 1500)
 }
 
 Rover.prototype.checkObstacles = function (sense) {
 
-    // parameters: --dir: string containing "N","E","S" or "W". --sense: boolean true --> forward sense.
+    // parameters: --sense: boolean true --> forward sense.
+
     var that = this;
 
     function obstacleLogic(adjSquare, obstPos) {
@@ -194,7 +201,7 @@ Rover.prototype.checkObstacles = function (sense) {
                 document.querySelector(`#${that.name}-points`).value = that.score;
 
                 //code to remove sample from collection
-                // debugger
+
                 var sampIndex = playingField.samples.findIndex(function (sample) {
                     return (sample.x === obstPos[0] && sample.y === obstPos[1])
                 });

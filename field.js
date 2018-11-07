@@ -7,6 +7,8 @@ let playingField = {
     sampleQty: 0,
     samples: [],
     rovers: [],
+    mines: [],
+    projectiles:[],
 
     createField: function () {
 
@@ -67,7 +69,8 @@ let playingField = {
                 obstY = Math.floor(Math.random() * (this.fieldSize[1] + 1));
             } while (obstX == this.rovers[0].x && obstY == this.rovers[0].y || obstX == this.rovers[1].x && obstY == this.rovers[1].y || this.field[obstX][obstY] == "X" || this.field[obstX][obstY] == ".")
             this.field[obstX][obstY] = "X";
-            var obst = {x:obstX,y:obstY};
+            // var obst = {x:obstX,y:obstY};
+            var obst = new Obstacle(obstX, obstY);
             this.obstacles.push(obst);
             console.log("Obstacle " + (i + 1) + " coordinates: " + obstX + ", " + obstY + "\n")
         }
@@ -88,7 +91,8 @@ let playingField = {
                 sampleY = Math.floor(Math.random() * (this.fieldSize[1] + 1));
             } while (sampleX == this.rovers[0].x && sampleY == this.rovers[0].y || sampleX == this.rovers[1].x && sampleY == this.rovers[1].y || this.field[sampleX][sampleY] == "X" || this.field[sampleX][sampleY] == ".")
             this.field[sampleX][sampleY] = ".";
-            var samp = {x:sampleX, y:sampleY};
+            // var samp = {x:sampleX, y:sampleY};
+            var samp = new Sample(sampleX,sampleY);
             this.samples.push(samp);
             console.log("sample " + (i + 1) + " coordinates: " + sampleX + ", " + sampleY + "\n")
         }
@@ -98,6 +102,10 @@ let playingField = {
 
         this.field[playingField.rovers[0].x][playingField.rovers[0].y] = playingField.rovers[0].dir;
         this.field[playingField.rovers[1].x][playingField.rovers[1].y] = playingField.rovers[1].dir + "2";
+
+        this.mines.forEach(function(mine){
+            this.field[mine.x][mine.y]="m";
+        }.bind(this));
 
         game.renderer.renderHTML();
 
