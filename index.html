@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script type="text/javascript" src="rover.js"></script>
   <script type="text/javascript" src="field.js"></script>
   <script type="text/javascript" src="renderer.js"></script>
@@ -12,6 +13,7 @@
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
+
 <body>
 
   <!-- <h1>Mars2043</h1>
@@ -25,25 +27,28 @@
 
       <legend>Game settings:</legend>
 
-      <label for="obst-num">Obstacle number</label>
+      <label for="obst-num">Obstacles</label>
       <input id="obst-num" type="number" style="width:30px" value="15">
-      <br>
-      <label for="sample-num">Point number</label>
+      <label for="sample-num">Samples</label>
       <input id="sample-num" type="number" style="width:30px" value="25">
+      <label id="renderer-label" for="canvas-renderer">Canvas</label>
+      <input id="canvas-renderer" type="checkbox" checked>
 
       <br><br>
       <label for="x-input">X</label>
       <input id="x-input" type="number" style="width:30px" value="20">
       <label for="y-input">Y</label>
       <input id="y-input" type="number" style="width:30px" value="10">
-      <input type="button" value="Start!" onclick="createFieldButton()">
+      <input id="start-button" type="button" value="Start!">
+      <input id="reset-button" type="button" value="Reset">
+      <input id="restart-button" type="button" value="Restart">
 
     </fieldset>
     <br>
   </form>
 
   <fieldset id="scoreboard">
-      <legend>SCORE:</legend>
+    <legend>SCORE:</legend>
     <label for="Rover-points">Player 1</label>
     <input id="Rover-points" type="number" style="width:30px" value="0">
     <label for="Rover2-points">Player 2</label>
@@ -55,7 +60,8 @@
   <div id="field-container">
     <p id="playing-field"></p>
   </div>
-  
-  
+
+
 </body>
+
 </html>

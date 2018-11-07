@@ -5,19 +5,37 @@ let game = {
   fps: 60,
   dataModel: [],
   renderer: null,
-  HTMLRenderer: false,
   CanvasRenderer: true,
 
 
   init: function () {
+
+    this.CanvasRenderer=document.querySelector('#canvas-renderer').checked;
+
     playingField.createField();
     this.dataModel = playingField.field;
     this.renderer = new Renderer(this.dataModel);
 
-    this.renderer.renderHTML();
+    if(!this.CanvasRenderer) this.renderer.renderHTML();
     if (this.CanvasRenderer) this.renderer.createCanvas();
     if (this.CanvasRenderer) this.renderer.renderCanvas();
     this.keyListener();
+  },
+
+  reset: function() {
+    //stop the renderer
+    if (this.CanvasRenderer) this.renderer.stopCanvasRender();
+    //manage all collections: rovers remain, samples and obstacles are
+    playingField.field=[];
+    //reinitialize
+    this.init();
+  },
+
+  totalReset: function() {
+    playingField.rovers=[];
+    this.reset()
+    document.querySelector('#Rover-points').value="0";
+    document.querySelector('#Rover2-points').value="0";
   },
 
   keyListener: function () {

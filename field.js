@@ -10,6 +10,7 @@ let playingField = {
 
     createField: function () {
 
+        //CREATE FIELD
 
         this.fieldSize[0] = document.getElementById("x-input").value - 1;
         this.fieldSize[1] = document.getElementById("y-input").value - 1;
@@ -26,18 +27,29 @@ let playingField = {
             this.field.push(col.slice(0));
         }
 
-        // Here the position of the Rover will be rendered on the field.
-        // ===========================
-        var rover1 = new Rover(0, 0, "W", "Rover");
-        this.rovers.push(rover1);
-        this.field[rover1.x][rover1.y] = rover1.dir;
-        // Here the position of the second Rover will be rendered on the field.
-        // ===========================
-        var rover2 = new Rover(1, 0, "N", "Rover2");
-        this.rovers.push(rover2);
-        this.field[rover2.x][rover2.y] = rover2.dir + "2";
+        //CREATE ROVERS
+
+        if (this.rovers.length === 0) {
+            //Instantiating Rovers in case there are none:
+
+            //Rover1
+            // ===========================
+            var rover1 = new Rover(0, 0, "W", "Rover");
+            this.rovers.push(rover1);
+
+            //Rover2
+            // ===========================
+            var rover2 = new Rover(1, 0, "N", "Rover2");
+            this.rovers.push(rover2);
+
+        }
+
+        // Here the position of the Rovers is rendered on the field.
+        this.field[this.rovers[0].x][this.rovers[0].y] = this.rovers[0].dir;        
+        this.field[this.rovers[1].x][this.rovers[1].y] = this.rovers[1].dir + "2"; 
         // ===========================
 
+        //CREATE OBSTACLES AND SAMPLES
         this.genObstacles(document.getElementById("obst-num").value);
         this.genSamples(document.getElementById("sample-num").value);
 

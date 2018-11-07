@@ -4,6 +4,8 @@ function Renderer(dataModel) {
     this.canvas = null
     this.ctx = null
 
+    this.intervalID = 0
+
     this.tileW = null
     this.tileH = null
 
@@ -61,8 +63,6 @@ Renderer.prototype.createCanvas = function () {
 
 Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the new model !!!!
 
-    if (game.HTMLRenderer === false) return;
-
     function renderer(str) {
         switch (str) {
             case "_":
@@ -112,13 +112,13 @@ Renderer.prototype.renderCanvas = function () {
     var counter = 0;
 
 
-    var intervalID = setInterval(function () {
+    this.intervalID = setInterval(function () {
 
         this.renderBackground();
         this.renderData();
 
         counter++;
-        if (counter > 5000) clearInterval(intervalID);
+        if (counter > 5000) clearInterval(this.intervalID);
 
     }.bind(this), 1000 / game.fps)
 
@@ -180,13 +180,18 @@ Renderer.prototype.renderData = function () {
     // debugger
     // this.ctx.drawImage(this.obstImg,100,100,100,100);
 
-    for (i = 0; i < playingField.fieldSize[0]+1; i++) {
-        for (j = 0; j < playingField.fieldSize[1]+1; j++) {
+    for (i = 0; i < playingField.fieldSize[0] + 1; i++) {
+        for (j = 0; j < playingField.fieldSize[1] + 1; j++) {
             if (rendererC(this.dataModel[i][j]) !== false) {
                 this.ctx.drawImage(rendererC(this.dataModel[i][j]), i * this.tileW, j * this.tileH, this.tileW, this.tileH);
             }
         }
     }
 
+
+    Renderer.prototype.stopCanvasRender = function () {
+        clearInterval(this.intervalID);
+        document.querySelector('#game-board').removeChild(this.canvas);
+    }
 
 }
