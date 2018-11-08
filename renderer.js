@@ -8,8 +8,10 @@ function Renderer(dataModel) {
     this.counter = 0
 
     this.xplTrigger = false
-    this.xplXCoord = 0;
-    this.xplYCoord = 0;
+    this.xplXCoord = 0
+    this.xplYCoord = 0
+
+    this.explosions = []
 
     this.tileW = null
     this.tileH = null
@@ -133,9 +135,13 @@ Renderer.prototype.renderCanvas = function () {
         this.renderBackground();
         this.renderData();
         
-        if (this.xplTrigger) {
-        this.renderExplosion(this.xplXCoord, this.xplYCoord);
-        }
+        this.explosions.forEach(function(explosion){
+            this.renderExplosion(explosion.x, explosion.y);
+        }.bind(this))
+
+        // if (this.xplTrigger) {
+        // this.renderExplosion(this.xplXCoord, this.xplYCoord);
+        // }
 
         this.counter++;
         if (this.counter > 5000) clearInterval(this.intervalID);

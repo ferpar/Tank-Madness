@@ -9,6 +9,8 @@ function Rover(x, y, dir, name) {
     this.mine = null;
     this.mineScore = 5;
     this.mineCost = 2;
+    this.mineIndex = 0
+    this.xplIndex = 0
 
 }
 
@@ -220,32 +222,39 @@ Rover.prototype.checkObstacles = function (sense) {
                 return true;
             case "m":
 
-                var mineIndex = playingField.mines.findIndex(function (mine) {
+                this.mineIndex = playingField.mines.findIndex(function (mine) {
                     return (mine.x === obstPos[0] && mine.y === obstPos[1])
                 });
 
                 that.disabled = true;
 
-                debugger
-
                 that.score -= that.mineScore;
                 document.querySelector(`#${that.name}-points`).value = that.score;
 
-                var ownerName = playingField.mines[mineIndex].owner;
+                var ownerName = playingField.mines[this.mineIndex].owner;
                 var ownerIndex = playingField.rovers.findIndex((owner) => owner.name === ownerName);
                 var mineOwner = playingField.rovers[ownerIndex];
-                debugger
+                // debugger
                 mineOwner.score += that.mineScore;
                 document.querySelector(`#${ownerName}-points`).value = mineOwner.score;
 
-                game.renderer.xplTrigger = true;
-                game.renderer.xplXCoord = playingField.mines[mineIndex].x;
-                game.renderer.xplYCoord = playingField.mines[mineIndex].y;
+                // game.renderer.xplTrigger = true;
+                // game.renderer.xplXCoord = playingField.mines[this.mineIndex].x;
+                // game.renderer.xplYCoord = playingField.mines[this.mineIndex].y;
 
-                playingField.mines.splice(mineIndex, 1);
+                game.renderer.explosions.push({ x: playingField.mines[this.mineIndex].x, y: playingField.mines[this.mineIndex].y });
+                debugger
+                this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
+                    explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
 
+                // console.table(game.renderer.explosions);
 
-                setTimeout(() => { game.renderer.xplTrigger = false }, 1250);
+                playingField.mines.splice(this.mineIndex, 1);
+
+                setTimeout(() => { game.renderer.explosions.splice(that.xplIndex, 1); }, 1250);
+
+                // console.table(game.renderer.explosions);
+
                 setTimeout(() => { that.disabled = false }, 3000);
 
                 return false;

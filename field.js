@@ -41,6 +41,7 @@ let playingField = {
 
             //Rover2
             // ===========================
+            // var rover2 = new Rover(this.fieldSize[0], this.fieldSize[1], "N", "Rover2");
             var rover2 = new Rover(1, 0, "N", "Rover2");
             this.rovers.push(rover2);
 
