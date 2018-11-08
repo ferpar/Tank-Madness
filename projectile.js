@@ -11,6 +11,9 @@ function Projectile(x, y, dir, velocity, range, owner) {
     this.projIndex = 0;
     this.move()
 
+    this.ownerIndex = null
+    this.targetIndex = null
+    this.xplIndex = null
 }
 
 Projectile.prototype.move = function () {
@@ -105,7 +108,31 @@ Projectile.prototype.detectHit = function () {
         case "E2":
         case "S2":
         case "W2":
-            
+            this.ownerIndex = playingField.rovers.findIndex(function (rover) {
+                return rover.name === this.owner
+            }.bind(this));
+            this.targetIndex = playingField.rovers.findIndex(function (rover) {
+                return (rover.x === adjPos[0] && rover.y === adjPos[1])
+            }.bind(this));
+            playingField.rovers[this.ownerIndex].score += 5;
+            playingField.rovers[this.targetIndex].score -= 5;
+            document.querySelector(`#${playingField.rovers[this.ownerIndex].name}-points`).value = playingField.rovers[this.ownerIndex].score;
+            document.querySelector(`#${playingField.rovers[this.targetIndex].name}-points`).value = playingField.rovers[this.targetIndex].score;
+
+
+            game.renderer.explosions.push({ x: playingField.rovers[this.targetIndex].x, y: playingField.rovers[this.targetIndex].y });
+
+            this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
+                explosion.x === playingField.rovers[this.targetIndex].x && explosion.y === playingField.rovers[this.targetIndex].y);
+
+            // console.table(game.renderer.explosions);
+
+            setTimeout(function() { game.renderer.explosions.splice(this.xplIndex, 1); }.bind(this), 1250);
+
+            // console.table(game.renderer.explosions);
+
+            // setTimeout(() => { that.disabled = false }, 3000);
+
         case "X":
             // case undefined:
             // default:
