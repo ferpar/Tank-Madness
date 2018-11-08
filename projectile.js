@@ -107,7 +107,7 @@ Projectile.prototype.detectHit = function () {
         case "W2":
             
         case "X":
-        case undefined:
+            // case undefined:
             // default:
             return true;
     }
@@ -134,7 +134,7 @@ Projectile.prototype.checkLimits = function () {
             break;
     }
     // debugger
-    if (adjPos[0] > playingField.fieldSize[0] || adjPos[0] < 0 || adjPos[1] === playingField.fieldSize[1] || adjPos[1] < 0) {
+    if (adjPos[0] > playingField.fieldSize[0] || adjPos[0] < 0 || adjPos[1] > playingField.fieldSize[1] || adjPos[1] < 0) {
         return true;
     }
 

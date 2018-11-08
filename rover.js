@@ -10,8 +10,10 @@ function Rover(x, y, dir, name) {
     this.mine = null
     this.mineScore = 5
     this.mineCost = 2
+    this.mineDelay = 500
     this.mineIndex = 0
     this.xplIndex = 0
+
 
     this.projectile = null
     this.projX = 0
@@ -228,7 +230,7 @@ Rover.prototype.plantMine = function () {
         this.score -= this.mineCost;
         document.querySelector(`#${this.name}-points`).value = this.score;
         playingField.updateAll();
-    }.bind(this), 1000)
+    }.bind(this), this.mineDelay)
 }
 
 Rover.prototype.checkObstacles = function (sense) {
@@ -280,7 +282,7 @@ Rover.prototype.checkObstacles = function (sense) {
                 // game.renderer.xplYCoord = playingField.mines[this.mineIndex].y;
 
                 game.renderer.explosions.push({ x: playingField.mines[this.mineIndex].x, y: playingField.mines[this.mineIndex].y });
-                debugger
+                // debugger
                 this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                     explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
 

@@ -31,6 +31,8 @@ let game = {
     playingField.samples = [];
     playingField.mines = [];
     playingField.projectiles = [];
+    
+    document.querySelector('#game-board').innerHTML = "";
     //reinitialize
     this.init();
   },

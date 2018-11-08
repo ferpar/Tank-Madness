@@ -125,6 +125,7 @@ let playingField = {
         this.projectiles.forEach(function (projectile) {
 
             if (!projectile.disable) this.field[projectile.x][projectile.y] = "-";
+            try{
             switch (projectile.dir) {
                 case "N":
                     // debugger
@@ -163,6 +164,8 @@ let playingField = {
                         this.field[projectile.x + 1][projectile.y] = "_";
                     }
             }
+        }catch (error) { return }
+
         }.bind(this))
 
         game.renderer.renderHTML();
