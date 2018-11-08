@@ -22,6 +22,8 @@ function Rover(x, y, dir, name) {
     this.projVelocity = 10 //squares per second
     this.projCost = 1
 
+    this.reload = false
+
 }
 
 Rover.prototype.turnRight = function () {
@@ -209,15 +211,19 @@ Rover.prototype.shoot = function () {
             break;
     }
 
+    if (!this.reload){
+        this.projectile = new Projectile(this.projX, this.projY, this.dir, this.projVelocity, this.projRange, this.name);
+        playingField.projectiles.push(this.projectile);
+        playingField.updateAll();
+        this.score -= this.projCost;
+        document.querySelector(`#${this.name}-points`).value = this.score;    
+    }
 
-    this.projectile = new Projectile(this.projX, this.projY, this.dir, this.projVelocity, this.projRange, this.name);
-    playingField.projectiles.push(this.projectile);
-    playingField.updateAll();
-    this.score -= this.projCost;
-    document.querySelector(`#${this.name}-points`).value = this.score;
-    // console.log(this.dir);
-    // console.table(playingField.rovers);
-    console.table(playingField.projectiles);
+    this.reload = true;
+    setTimeout(function () {
+        this.reload = false;
+    }.bind(this), 1000);
+
 
 }
 
