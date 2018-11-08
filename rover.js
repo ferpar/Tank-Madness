@@ -6,11 +6,19 @@ function Rover(x, y, dir, name) {
     this.score = 0
     this.name = name
     this.disabled = false
-    this.mine = null;
-    this.mineScore = 5;
-    this.mineCost = 2;
+
+    this.mine = null
+    this.mineScore = 5
+    this.mineCost = 2
     this.mineIndex = 0
     this.xplIndex = 0
+
+    this.projectile = null
+    this.projX = 0
+    this.projY = 0
+    this.projRange = 10
+    this.projVelocity = 5 //squares per second
+    this.projCost = 1
 
 }
 
@@ -180,18 +188,47 @@ Rover.prototype.moveBack = function () {
 
 Rover.prototype.shoot = function () {
 
+    switch (this.dir) {
+        case "N":
+            this.projX = this.x;
+            this.projY = this.y - 1;
+            break;
+        case "E":
+            this.projX = this.x + 1;
+            this.projY = this.y;
+            break;
+        case "S":
+            this.projX = this.x;
+            this.projY = this.y + 1;
+            break;
+        case "W":
+            this.projX = this.x - 1;
+            this.projY = this.y;
+            break;
+    }
+
+    
+    this.projectile = new Projectile(this.projX, this.projY, this.dir, this.projVelocity, this.projRange, this.name);
+    playingField.projectiles.push(this.projectile);
+    playingField.updateAll();
+    this.score-=this.projCost;
+    document.querySelector(`#${this.name}-points`).value = this.score;
+    // console.log(this.dir);
+    // console.table(playingField.rovers);
+    console.table(playingField.projectiles);
+
 }
 
 Rover.prototype.plantMine = function () {
     this.mine = new Mine(this.x, this.y, 1, this.name);
-    // debugger
+
     setTimeout(function () {
         playingField.mines.push(this.mine);
-        console.log(`planted mine @ [${this.x},${this.y}]`);
+        // console.log(`planted mine @ [${this.x},${this.y}]`);
         this.score -= this.mineCost;
         document.querySelector(`#${this.name}-points`).value = this.score;
         playingField.updateAll();
-    }.bind(this), 1500)
+    }.bind(this), 1000)
 }
 
 Rover.prototype.checkObstacles = function (sense) {
@@ -271,7 +308,7 @@ Rover.prototype.checkObstacles = function (sense) {
             case "E":
                 try { return obstacleLogic(playingField.field[this.x + 1][this.y], [this.x + 1, this.y]); }
                 catch (error) {
-                    console.log('field limit reached');
+                    // console.log('field limit reached');
                     return "undefined"
                 }
 
@@ -280,7 +317,7 @@ Rover.prototype.checkObstacles = function (sense) {
             case "W":
                 try { return obstacleLogic(playingField.field[this.x - 1][this.y], [this.x - 1, this.y]); }
                 catch (error) {
-                    console.log('field limit reached');
+                    // console.log('field limit reached');
                     return "undefined"
                 }
         }
@@ -291,7 +328,7 @@ Rover.prototype.checkObstacles = function (sense) {
             case "E":
                 try { return obstacleLogic(playingField.field[this.x - 1][this.y], [this.x - 1, this.y]); }
                 catch (error) {
-                    console.log('field limit reached');
+                    // console.log('field limit reached');
                     return "undefined"
                 }
             case "S":
@@ -299,7 +336,7 @@ Rover.prototype.checkObstacles = function (sense) {
             case "W":
                 try { return obstacleLogic(playingField.field[this.x + 1][this.y], [this.x + 1, this.y]); }
                 catch (error) {
-                    console.log('field limit reached');
+                    // console.log('field limit reached');
                     return "undefined"
                 }
         }

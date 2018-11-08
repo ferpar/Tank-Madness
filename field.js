@@ -8,7 +8,7 @@ let playingField = {
     samples: [],
     rovers: [],
     mines: [],
-    projectiles:[],
+    projectiles: [],
 
     createField: function () {
 
@@ -41,15 +41,15 @@ let playingField = {
 
             //Rover2
             // ===========================
-            // var rover2 = new Rover(this.fieldSize[0], this.fieldSize[1], "N", "Rover2");
-            var rover2 = new Rover(1, 0, "N", "Rover2");
+            var rover2 = new Rover(this.fieldSize[0], this.fieldSize[1], "N", "Rover2");
+            // var rover2 = new Rover(1, 0, "N", "Rover2");
             this.rovers.push(rover2);
 
         }
 
         // Here the position of the Rovers is rendered on the field.
-        this.field[this.rovers[0].x][this.rovers[0].y] = this.rovers[0].dir;        
-        this.field[this.rovers[1].x][this.rovers[1].y] = this.rovers[1].dir + "2"; 
+        this.field[this.rovers[0].x][this.rovers[0].y] = this.rovers[0].dir;
+        this.field[this.rovers[1].x][this.rovers[1].y] = this.rovers[1].dir + "2";
         // ===========================
 
         //CREATE OBSTACLES AND SAMPLES
@@ -93,7 +93,7 @@ let playingField = {
             } while (sampleX == this.rovers[0].x && sampleY == this.rovers[0].y || sampleX == this.rovers[1].x && sampleY == this.rovers[1].y || this.field[sampleX][sampleY] == "X" || this.field[sampleX][sampleY] == ".")
             this.field[sampleX][sampleY] = ".";
             // var samp = {x:sampleX, y:sampleY};
-            var samp = new Sample(sampleX,sampleY);
+            var samp = new Sample(sampleX, sampleY);
             this.samples.push(samp);
             console.log("sample " + (i + 1) + " coordinates: " + sampleX + ", " + sampleY + "\n")
         }
@@ -101,12 +101,69 @@ let playingField = {
 
     updateAll: function () {
 
+        // for (i=0; playingField.fieldSize[0]+1; i++){
+        //     for(j=0; playingField.fieldSize[1] +1; j++){
+        //         field[i][j] = "_";
+        //     }
+        // }
+
         this.field[playingField.rovers[0].x][playingField.rovers[0].y] = playingField.rovers[0].dir;
         this.field[playingField.rovers[1].x][playingField.rovers[1].y] = playingField.rovers[1].dir + "2";
 
-        this.mines.forEach(function(mine){
-            this.field[mine.x][mine.y]="m";
+        // this.obstacles.forEach(function(obstacle){
+        //     this.field[obstacle.x][obstacle.y]="X";
+        // }.bind(this));
+
+        // this.samples.forEach(function(sample){
+        //     this.field[sample.x][sample.y]=".";
+        // }.bind(this));
+
+        this.mines.forEach(function (mine) {
+            this.field[mine.x][mine.y] = "m";
         }.bind(this));
+
+        this.projectiles.forEach(function (projectile) {
+
+            if (!projectile.disable) this.field[projectile.x][projectile.y] = "-";
+            switch (projectile.dir) {
+                case "N":
+                    // debugger
+                    if (this.field[projectile.x][projectile.y + 1] === "-" && this.field[projectile.x][projectile.y + 1] !== "N"
+                        && this.field[projectile.x][projectile.y + 1] !== "E" && this.field[projectile.x][projectile.y + 1] !== "S"
+                        && this.field[projectile.x][projectile.y + 1] !== "W" && this.field[projectile.x][projectile.y + 1] !== "N2"
+                        && this.field[projectile.x][projectile.y + 1] !== "E2" && this.field[projectile.x][projectile.y + 1] !== "S2"
+                        && this.field[projectile.x][projectile.y + 1] !== "W2") {
+                        this.field[projectile.x][projectile.y + 1] = "_";
+                    }
+                case "E":
+                    // debugger
+                    if (this.field[projectile.x - 1][projectile.y] === "-" && this.field[projectile.x - 1][projectile.y] !== "N"
+                        && this.field[projectile.x - 1][projectile.y] !== "E" && this.field[projectile.x - 1][projectile.y] !== "S"
+                        && this.field[projectile.x - 1][projectile.y] !== "W" && this.field[projectile.x - 1][projectile.y] !== "N2"
+                        && this.field[projectile.x - 1][projectile.y] !== "E2" && this.field[projectile.x - 1][projectile.y] !== "S2"
+                        && this.field[projectile.x - 1][projectile.y] !== "W2") {
+                        this.field[projectile.x - 1][projectile.y] = "_";
+                    }
+                case "S":
+                    // debugger
+                    if (this.field[projectile.x][projectile.y - 1] === "-" && this.field[projectile.x][projectile.y - 1] !== "N"
+                        && this.field[projectile.x][projectile.y - 1] !== "E" && this.field[projectile.x][projectile.y - 1] !== "S"
+                        && this.field[projectile.x][projectile.y - 1] !== "W" && this.field[projectile.x][projectile.y - 1] !== "N2"
+                        && this.field[projectile.x][projectile.y - 1] !== "E2" && this.field[projectile.x][projectile.y - 1] !== "S2"
+                        && this.field[projectile.x][projectile.y - 1] !== "W2") {
+                        this.field[projectile.x][projectile.y - 1] = "_";
+                    }
+                case "W":
+                    // debugger
+                    if (this.field[projectile.x + 1][projectile.y] === "-" && this.field[projectile.x + 1][projectile.y] !== "N"
+                        && this.field[projectile.x + 1][projectile.y] !== "E" && this.field[projectile.x + 1][projectile.y] !== "S"
+                        && this.field[projectile.x + 1][projectile.y] !== "W" && this.field[projectile.x + 1][projectile.y] !== "N2"
+                        && this.field[projectile.x + 1][projectile.y] !== "E2" && this.field[projectile.x + 1][projectile.y] !== "S2"
+                        && this.field[projectile.x + 1][projectile.y] !== "W2") {
+                        this.field[projectile.x + 1][projectile.y] = "_";
+                    }
+            }
+        }.bind(this))
 
         game.renderer.renderHTML();
 

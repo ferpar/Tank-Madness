@@ -103,6 +103,8 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
                     return "<div class=\"square p2\"><=</div>";
                 case "m":
                     return "<div class=\"square \">m</div>";
+                case "-":
+                return "<div class=\"square obstacle\">-</div>";
 
             }
 
@@ -118,7 +120,7 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
         }
 
 
-        console.log("field created and rendered");
+        // console.log("field created and rendered");
 
 
         document.getElementById("playing-field").innerHTML = outputMat;
