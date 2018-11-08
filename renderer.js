@@ -149,7 +149,7 @@ Renderer.prototype.renderCanvas = function () {
         // }
 
         this.counter++;
-        if (this.counter > 5000) clearInterval(this.intervalID);
+        if (this.counter > 10000) clearInterval(this.intervalID);
 
     }.bind(this), 1000 / game.fps)
 

@@ -9,11 +9,14 @@ function Projectile(x, y, dir, velocity, range, owner) {
     this.disable = false
     this.projInterval = null
     this.projIndex = 0;
+    this.hitScore = 5;
     this.move()
 
     this.ownerIndex = null
     this.targetIndex = null
     this.xplIndex = null
+
+    this.obstIndex = null
 }
 
 Projectile.prototype.move = function () {
@@ -114,11 +117,12 @@ Projectile.prototype.detectHit = function () {
             this.targetIndex = playingField.rovers.findIndex(function (rover) {
                 return (rover.x === adjPos[0] && rover.y === adjPos[1])
             }.bind(this));
-            playingField.rovers[this.ownerIndex].score += 5;
-            playingField.rovers[this.targetIndex].score -= 5;
+            playingField.rovers[this.ownerIndex].score += this.hitScore;
+            playingField.rovers[this.targetIndex].score -= this.hitScore;
             document.querySelector(`#${playingField.rovers[this.ownerIndex].name}-points`).value = playingField.rovers[this.ownerIndex].score;
             document.querySelector(`#${playingField.rovers[this.targetIndex].name}-points`).value = playingField.rovers[this.targetIndex].score;
 
+            playingField.rovers[this.targetIndex].disabled = true;
 
             game.renderer.explosions.push({ x: playingField.rovers[this.targetIndex].x, y: playingField.rovers[this.targetIndex].y });
 
@@ -127,13 +131,41 @@ Projectile.prototype.detectHit = function () {
 
             // console.table(game.renderer.explosions);
 
-            setTimeout(function() { game.renderer.explosions.splice(this.xplIndex, 1); }.bind(this), 1250);
+            setTimeout(function () { game.renderer.explosions.splice(this.xplIndex, 1); }.bind(this), 1250);
 
             // console.table(game.renderer.explosions);
+            // debugger
+            var StartingPositions = [[0, 0], [playingField.fieldSize[0], playingField.fieldSize[1]]];
+            var newPos = StartingPositions[Math.floor(Math.random() * 2)];
 
-            // setTimeout(() => { that.disabled = false }, 3000);
+            playingField.field[playingField.rovers[this.targetIndex].x][playingField.rovers[this.targetIndex].y] = "_";
+            playingField.rovers[this.targetIndex].x = newPos[0];
+            playingField.rovers[this.targetIndex].y = newPos[1];
+
+
+            setTimeout(function () { playingField.rovers[this.targetIndex].disabled = false }.bind(this), 3000);
+
+
 
         case "X":
+
+            this.obstIndex = playingField.obstacles.findIndex(function (obstacle) {
+                return (obstacle.x === adjPos[0] && obstacle.y === adjPos[1])
+            }.bind(this));
+
+            game.renderer.explosions.push({ x: playingField.obstacles[this.obstIndex].x, y: playingField.obstacles[this.obstIndex].y });
+
+            this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
+                explosion.x === playingField.obstacles[this.obstIndex].x && explosion.y === playingField.obstacles[this.obstIndex].y);
+
+            setTimeout(function () { game.renderer.explosions.splice(this.xplIndex, 1); }.bind(this), 1250);
+
+            playingField.field[playingField.obstacles[this.obstIndex].x][playingField.obstacles[this.obstIndex].y] = "_";
+
+            playingField.obstacles.splice(this.obstIndex, 1);
+
+            setTimeout(function () { game.renderer.explosions.pop(); }.bind(this), 2000);
+
             // case undefined:
             // default:
             return true;

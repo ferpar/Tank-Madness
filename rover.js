@@ -209,11 +209,11 @@ Rover.prototype.shoot = function () {
             break;
     }
 
-    
+
     this.projectile = new Projectile(this.projX, this.projY, this.dir, this.projVelocity, this.projRange, this.name);
     playingField.projectiles.push(this.projectile);
     playingField.updateAll();
-    this.score-=this.projCost;
+    this.score -= this.projCost;
     document.querySelector(`#${this.name}-points`).value = this.score;
     // console.log(this.dir);
     // console.table(playingField.rovers);
@@ -273,16 +273,13 @@ Rover.prototype.checkObstacles = function (sense) {
                 var ownerName = playingField.mines[this.mineIndex].owner;
                 var ownerIndex = playingField.rovers.findIndex((owner) => owner.name === ownerName);
                 var mineOwner = playingField.rovers[ownerIndex];
-                // debugger
+
                 mineOwner.score += that.mineScore;
                 document.querySelector(`#${ownerName}-points`).value = mineOwner.score;
 
-                // game.renderer.xplTrigger = true;
-                // game.renderer.xplXCoord = playingField.mines[this.mineIndex].x;
-                // game.renderer.xplYCoord = playingField.mines[this.mineIndex].y;
 
                 game.renderer.explosions.push({ x: playingField.mines[this.mineIndex].x, y: playingField.mines[this.mineIndex].y });
-                // debugger
+
                 this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                     explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
 
@@ -293,6 +290,13 @@ Rover.prototype.checkObstacles = function (sense) {
                 setTimeout(() => { game.renderer.explosions.splice(that.xplIndex, 1); }, 1250);
 
                 // console.table(game.renderer.explosions);
+
+
+                // var StartingPositions = [[0, 0], [playingField.fieldSize[0], playingField.fieldSize[1]]];
+                // var newPos = StartingPositions[Math.floor(Math.random() * 2)];
+                // playingField.field[this.x][this.y] = "_";
+                // that.x=newPos[0];
+                // that.y=newPos[1];
 
                 setTimeout(() => { that.disabled = false }, 3000);
 
