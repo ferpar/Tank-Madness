@@ -7,6 +7,10 @@ function Renderer(dataModel) {
     this.intervalID = 0
     this.counter = 0
 
+    this.xplTrigger = false
+    this.xplXCoord = 0;
+    this.xplYCoord = 0;
+
     this.tileW = null
     this.tileH = null
 
@@ -128,7 +132,10 @@ Renderer.prototype.renderCanvas = function () {
 
         this.renderBackground();
         this.renderData();
-        this.renderExplosion(3, 4);
+        
+        if (this.xplTrigger) {
+        this.renderExplosion(this.xplXCoord, this.xplYCoord);
+        }
 
         this.counter++;
         if (this.counter > 5000) clearInterval(this.intervalID);
@@ -142,7 +149,6 @@ Renderer.prototype.renderBackground = function () {
     this.x = 0;
     this.y = 0;
     this.ctx.drawImage(this.bgImg, this.x, this.y, this.canvas.clientWidth, this.canvas.height);
-    // console.log("here");
 }
 
 Renderer.prototype.renderData = function () {
@@ -152,41 +158,29 @@ Renderer.prototype.renderData = function () {
     function rendererC(str) {
         switch (str) {
             case "_":
-                // return "<div class=\"square\"></div>";
                 return false;
             case ".":
                 return that.sampleImg;
-            // return "<div class=\"square point\">.</div>";
             case "X":
                 return that.obstImg;
-            // return "<div class=\"square obstacle\">X</div>";
             case "N":
                 return that.tank1NImg;
-            // return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\">=></div>";
             case "E":
                 return that.tank1EImg;
-            // return "<div class=\"square p1\">=></div>";
             case "S":
                 return that.tank1SImg;
-            // return "<div class=\"square p1\" style=\"transform:rotate(-90deg)\"><=</div>";
             case "W":
                 return that.tank1WImg;
-            // return "<div class=\"square p1\"><=</div>";
             case "N2":
                 return that.tank2NImg;
-            // return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\">=></div>";
             case "E2":
                 return that.tank2EImg;
-            // return "<div class=\"square p2\">=></div>";
             case "S2":
                 return that.tank2SImg;
-            // return "<div class=\"square p2\" style=\"transform:rotate(-90deg)\"><=</div>";
             case "W2":
                 return that.tank2WImg;
-            // return "<div class=\"square p2\"><=</div>";
             case "m":
                 return that.mineImg;
-            // return "<div class=\"square \">m</div>";
             default:
                 return false;
 
@@ -210,30 +204,6 @@ Renderer.prototype.stopCanvasRender = function () {
     clearInterval(this.intervalID);
     document.querySelector('#game-board').removeChild(this.canvas);
 }
-
-// Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
-//     var xplCounter = 0;
-//     var xplInterval = setInterval(function () {
-//         xplCounter++;
-//         // debugger
-//         this.ctx.drawImage(
-//             this.xplImg,
-//             xplCounter * Math.floor(this.xplImg.width / this.xplImg.frames),
-//             0,
-//             Math.floor(this.xplImg.width / this.xplImg.frames),
-//             this.xplImg.height,
-//             this.xCoord,
-//             this.yCoord,
-//             playingField.tileW,
-//             playingField.tileH,
-//         );
-//     }.bind(this), 250)
-
-//     setTimeout(function () {
-//         clearInterval(xplInterval);
-//     }.bind(this), 1250);
-
-// }
 
 Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
     // debugger

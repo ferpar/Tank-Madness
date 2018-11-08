@@ -8,7 +8,7 @@ function Rover(x, y, dir, name) {
     this.disabled = false
     this.mine = null;
     this.mineScore = 5;
-    this.mineCost= 2;
+    this.mineCost = 2;
 
 }
 
@@ -33,7 +33,7 @@ Rover.prototype.turnRight = function () {
             break;
     }
 
-    console.log("New Rover Direction: " + this.dir);
+    // console.log("New Rover Direction: " + this.dir);
 
 }
 
@@ -58,7 +58,7 @@ Rover.prototype.turnLeft = function () {
             break;
     }
 
-    console.log("New Rover Direction: " + this.dir);
+    // console.log("New Rover Direction: " + this.dir);
 
 }
 
@@ -113,7 +113,7 @@ Rover.prototype.moveAhead = function () {
             break;
     }
 
-    console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
+    // console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
 
 
 
@@ -186,7 +186,7 @@ Rover.prototype.plantMine = function () {
     setTimeout(function () {
         playingField.mines.push(this.mine);
         console.log(`planted mine @ [${this.x},${this.y}]`);
-        this.score-=this.mineCost;
+        this.score -= this.mineCost;
         document.querySelector(`#${this.name}-points`).value = this.score;
         playingField.updateAll();
     }.bind(this), 1500)
@@ -238,10 +238,14 @@ Rover.prototype.checkObstacles = function (sense) {
                 mineOwner.score += that.mineScore;
                 document.querySelector(`#${ownerName}-points`).value = mineOwner.score;
 
+                game.renderer.xplTrigger = true;
+                game.renderer.xplXCoord = playingField.mines[mineIndex].x;
+                game.renderer.xplYCoord = playingField.mines[mineIndex].y;
+
                 playingField.mines.splice(mineIndex, 1);
 
 
-
+                setTimeout(() => { game.renderer.xplTrigger = false }, 1250);
                 setTimeout(() => { that.disabled = false }, 3000);
 
                 return false;
