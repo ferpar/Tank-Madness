@@ -105,6 +105,7 @@ Projectile.prototype.detectHit = function () {
         case "E2":
         case "S2":
         case "W2":
+            
         case "X":
         case undefined:
             // default:

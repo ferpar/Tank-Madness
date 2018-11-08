@@ -17,7 +17,7 @@ function Rover(x, y, dir, name) {
     this.projX = 0
     this.projY = 0
     this.projRange = 10
-    this.projVelocity = 5 //squares per second
+    this.projVelocity = 10 //squares per second
     this.projCost = 1
 
 }

@@ -55,6 +55,9 @@ function Renderer(dataModel) {
     this.xplImg = new Image()
     this.xplImg.src = "./images/explosion_spr.svg"
     this.xplImg.frames = 5;
+
+    this.shellImg = new Image()
+    this.shellImg.src = "./images/shellUniv.svg"
 }
 
 Renderer.prototype.createCanvas = function () {
@@ -189,6 +192,8 @@ Renderer.prototype.renderData = function () {
                 return that.tank2WImg;
             case "m":
                 return that.mineImg;
+            case "-":
+                return that.shellImg;
             default:
                 return false;
 
