@@ -306,7 +306,7 @@ Rover.prototype.checkObstacles = function (sense) {
 
                 
 
-                return "m";
+                return "false";
 
             default:
                 return true;
