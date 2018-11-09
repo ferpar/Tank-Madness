@@ -15,6 +15,7 @@
   <script type="text/javascript" src="game.js"></script>
   <script type="text/javascript" src="index.js"></script>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
   <title>Document</title>
 </head>
 
@@ -30,7 +31,7 @@
     <fieldset>
 
       <legend>Game settings:</legend>
-
+      <br>
       <label for="obst-num">Obstacles</label>
       <input id="obst-num" type="number" style="width:30px" value="15">
       <label for="sample-num">Samples</label>
@@ -43,9 +44,9 @@
       <input id="x-input" type="number" style="width:30px" value="20">
       <label for="y-input">Y</label>
       <input id="y-input" type="number" style="width:30px" value="10">
-      <input id="start-button" type="button" value="Start!">
-      <input id="reset-button" type="button" value="Reset">
-      <input id="restart-button" type="button" value="Restart">
+      <input id="start-button" class="download" type="button" value="Start!">
+      <input id="reset-button" class="download" type="button" value="Reset">
+      <input id="restart-button" class="download" type="button" value="Restart">
 
     </fieldset>
     <br>
@@ -53,10 +54,9 @@
 
   <fieldset id="scoreboard">
     <legend>SCORE:</legend>
-    <label for="Rover-points">Player 1</label>
-    <input id="Rover-points" type="number" style="width:30px" value="0">
-    <label for="Rover2-points">Player 2</label>
-    <input id="Rover2-points" type="number" style="width:30px" value="0">
+    <label>Player 1 : <span id="Rover-points">0</span></label>
+    <label class="Rover2-label">Player 2: <span id="Rover2-points">0</span> </label>
+
   </fieldset>
 
   <div id="game-board"></div>

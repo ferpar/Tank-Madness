@@ -7,6 +7,8 @@ let game = {
   renderer: null,
   CanvasRenderer: true,
 
+  theme : new Audio(),
+  
 
   init: function () {
 
@@ -20,6 +22,10 @@ let game = {
     if (this.CanvasRenderer) this.renderer.createCanvas();
     if (this.CanvasRenderer) this.renderer.renderCanvas();
     this.keyListener();
+
+    this.theme.src = "./Audio/Theme.mp3";
+    this.theme.play()
+
   },
 
   reset: function () {
@@ -40,8 +46,8 @@ let game = {
   totalReset: function () {
     playingField.rovers = [];
     this.reset()
-    document.querySelector('#Rover-points').value = "0";
-    document.querySelector('#Rover2-points').value = "0";
+    document.querySelector('#Rover-points').innerHTML = "0";
+    document.querySelector('#Rover2-points').innerHTML = "0";
   },
 
   keyListener: function () {

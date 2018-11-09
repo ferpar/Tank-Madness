@@ -17,6 +17,10 @@ function Projectile(x, y, dir, velocity, range, owner) {
     this.xplIndex = null
 
     this.obstIndex = null
+
+    this.xplAudio = new Audio()
+    this.xplAudio.src ="./Audio/explosion2.mp3"
+
 }
 
 Projectile.prototype.move = function () {
@@ -119,8 +123,8 @@ Projectile.prototype.detectHit = function () {
             }.bind(this));
             playingField.rovers[this.ownerIndex].score += this.hitScore;
             playingField.rovers[this.targetIndex].score -= this.hitScore;
-            document.querySelector(`#${playingField.rovers[this.ownerIndex].name}-points`).value = playingField.rovers[this.ownerIndex].score;
-            document.querySelector(`#${playingField.rovers[this.targetIndex].name}-points`).value = playingField.rovers[this.targetIndex].score;
+            document.querySelector(`#${playingField.rovers[this.ownerIndex].name}-points`).innerHTML = playingField.rovers[this.ownerIndex].score;
+            document.querySelector(`#${playingField.rovers[this.targetIndex].name}-points`).innerHTML = playingField.rovers[this.targetIndex].score;
 
             playingField.rovers[this.targetIndex].disabled = true;
 
@@ -141,7 +145,7 @@ Projectile.prototype.detectHit = function () {
             playingField.field[playingField.rovers[this.targetIndex].x][playingField.rovers[this.targetIndex].y] = "_";
             playingField.rovers[this.targetIndex].x = newPos[0];
             playingField.rovers[this.targetIndex].y = newPos[1];
-
+            this.xplAudio.play()
 
             setTimeout(function () { playingField.rovers[this.targetIndex].disabled = false }.bind(this), 3000);
 
@@ -164,7 +168,10 @@ Projectile.prototype.detectHit = function () {
 
             playingField.obstacles.splice(this.obstIndex, 1);
 
-            setTimeout(function () { game.renderer.explosions.pop(); }.bind(this), 2000);
+            setTimeout(function () { game.renderer.explosions.pop();
+                game.renderer.explosions.pop(); }.bind(this), 2000);
+            this.xplAudio.play()
+            
 
             // case undefined:
             // default:

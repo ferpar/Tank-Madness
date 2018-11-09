@@ -22,8 +22,11 @@ function Renderer(dataModel) {
     this.obstImg = new Image()
     this.obstImg.src = "./images/obstacle.svg"
 
+    this.obstImg7 = new Image()
+    this.obstImg7.src = "./images/Obstacles/Obst7.png"
+
     this.sampleImg = new Image()
-    this.sampleImg.src = "./images/sample.svg"
+    this.sampleImg.src = "./images/sample2.svg"
 
     this.tank1NImg = new Image()
     this.tank1NImg.src = "./images/tank1N.svg"
@@ -58,6 +61,7 @@ function Renderer(dataModel) {
 
     this.shellImg = new Image()
     this.shellImg.src = "./images/shellUniv.svg"
+
 }
 
 Renderer.prototype.createCanvas = function () {
@@ -173,7 +177,7 @@ Renderer.prototype.renderData = function () {
             case ".":
                 return that.sampleImg;
             case "X":
-                return that.obstImg;
+                return that.obstImg7;
             case "N":
                 return that.tank1NImg;
             case "E":

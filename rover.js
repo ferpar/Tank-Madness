@@ -24,6 +24,9 @@ function Rover(x, y, dir, name) {
 
     this.reload = false
 
+    this.shotAudio = new Audio()
+    this.shotAudio.src ="./Audio/shot.mp3"
+
 }
 
 Rover.prototype.turnRight = function () {
@@ -216,7 +219,8 @@ Rover.prototype.shoot = function () {
         playingField.projectiles.push(this.projectile);
         playingField.updateAll();
         this.score -= this.projCost;
-        document.querySelector(`#${this.name}-points`).value = this.score;    
+        document.querySelector(`#${this.name}-points`).innerHTML = this.score;    
+        this.shotAudio.play();
     }
 
     this.reload = true;
@@ -224,6 +228,7 @@ Rover.prototype.shoot = function () {
         this.reload = false;
     }.bind(this), 1000);
 
+    
 
 }
 
@@ -234,7 +239,7 @@ Rover.prototype.plantMine = function () {
         playingField.mines.push(this.mine);
         // console.log(`planted mine @ [${this.x},${this.y}]`);
         this.score -= this.mineCost;
-        document.querySelector(`#${this.name}-points`).value = this.score;
+        document.querySelector(`#${this.name}-points`).innerHTML = this.score;
         playingField.updateAll();
     }.bind(this), this.mineDelay)
 }
@@ -251,7 +256,7 @@ Rover.prototype.checkObstacles = function (sense) {
                 return true;
             case ".":
                 that.score++;
-                document.querySelector(`#${that.name}-points`).value = that.score;
+                document.querySelector(`#${that.name}-points`).innerHTML = that.score;
 
                 //code to remove sample from collection
 
@@ -274,14 +279,14 @@ Rover.prototype.checkObstacles = function (sense) {
                 that.disabled = true;
 
                 that.score -= that.mineScore;
-                document.querySelector(`#${that.name}-points`).value = that.score;
+                document.querySelector(`#${that.name}-points`).innerHTML = that.score;
 
                 var ownerName = playingField.mines[this.mineIndex].owner;
                 var ownerIndex = playingField.rovers.findIndex((owner) => owner.name === ownerName);
                 var mineOwner = playingField.rovers[ownerIndex];
 
                 mineOwner.score += that.mineScore;
-                document.querySelector(`#${ownerName}-points`).value = mineOwner.score;
+                document.querySelector(`#${ownerName}-points`).innerHTML = mineOwner.score;
 
 
                 game.renderer.explosions.push({ x: playingField.mines[this.mineIndex].x, y: playingField.mines[this.mineIndex].y });
