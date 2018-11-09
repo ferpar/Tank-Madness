@@ -7,6 +7,8 @@ function Renderer(dataModel) {
     this.intervalID = 0
     this.counter = 0
 
+    this.countdown = null
+
     this.xplTrigger = false
     this.xplXCoord = 0
     this.xplYCoord = 0
@@ -151,7 +153,8 @@ Renderer.prototype.renderCanvas = function () {
         // if (this.xplTrigger) {
         // this.renderExplosion(this.xplXCoord, this.xplYCoord);
         // }
-
+        this.countdown = 100 - Math.floor(this.counter/60)
+        document.querySelector('.timer').innerHTML= "   " + this.countdown;
         this.counter++;
         if (this.counter > 10000) clearInterval(this.intervalID);
 

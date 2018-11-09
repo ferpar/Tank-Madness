@@ -87,7 +87,7 @@ body {
 }
 
 #game-settings {
-    width:25%;
+    width:40%;
 }
 
 #game-settings fieldset {
@@ -97,7 +97,7 @@ body {
 #scoreboard{
     color: hsl(131,91%,44%);
     position: absolute;
-    width:25%;
+    width:35%;
     top:5vh;
     left:40vw;
     border: 0px;
@@ -114,6 +114,12 @@ body {
 
 .Rover-label, .Rover2-label {
     font-size: 150%;
+}
+
+.timer {
+    font-size: 200%;
+    margin-left: 80px;
+    font-family: 'Monoton', cursive;
 }
 
 .download {
