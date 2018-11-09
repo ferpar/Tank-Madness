@@ -164,7 +164,7 @@ Projectile.prototype.detectHit = function () {
             playingField.obstacles.splice(this.obstIndex, 1);
 
             setTimeout(function () { game.renderer.explosions.pop();
-                game.renderer.explosions.pop(); }.bind(this), 2000);
+                game.renderer.explosions = [] ; }.bind(this), 2000);
             this.xplAudio.play()
             
 
