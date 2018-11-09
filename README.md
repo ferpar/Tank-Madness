@@ -1,5 +1,5 @@
-# mars2043
-IRONHACK Project #1 Mars2043 Videogame
+# Tank Madness
+IRONHACK Project #1 Tank Madness (former Mars2043) Videogame
 
 This game is a project I did while at the Ironhack bootcamp. 
 
