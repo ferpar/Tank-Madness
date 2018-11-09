@@ -129,10 +129,6 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
             outputMat += "<br class=\"defloat\">";
         }
 
-
-        // console.log("field created and rendered");
-
-
         document.getElementById("playing-field").innerHTML = outputMat;
 
     }

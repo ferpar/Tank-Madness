@@ -73,7 +73,6 @@ let playingField = {
             // var obst = {x:obstX,y:obstY};
             var obst = new Obstacle(obstX, obstY);
             this.obstacles.push(obst);
-            console.log("Obstacle " + (i + 1) + " coordinates: " + obstX + ", " + obstY + "\n")
         }
 
 
@@ -92,31 +91,15 @@ let playingField = {
                 sampleY = Math.floor(Math.random() * (this.fieldSize[1] + 1));
             } while (sampleX == this.rovers[0].x && sampleY == this.rovers[0].y || sampleX == this.rovers[1].x && sampleY == this.rovers[1].y || this.field[sampleX][sampleY] == "X" || this.field[sampleX][sampleY] == ".")
             this.field[sampleX][sampleY] = ".";
-            // var samp = {x:sampleX, y:sampleY};
             var samp = new Sample(sampleX, sampleY);
             this.samples.push(samp);
-            console.log("sample " + (i + 1) + " coordinates: " + sampleX + ", " + sampleY + "\n")
         }
     },
 
     updateAll: function () {
 
-        // for (i=0; playingField.fieldSize[0]+1; i++){
-        //     for(j=0; playingField.fieldSize[1] +1; j++){
-        //         field[i][j] = "_";
-        //     }
-        // }
-
         this.field[playingField.rovers[0].x][playingField.rovers[0].y] = playingField.rovers[0].dir;
         this.field[playingField.rovers[1].x][playingField.rovers[1].y] = playingField.rovers[1].dir + "2";
-
-        // this.obstacles.forEach(function(obstacle){
-        //     this.field[obstacle.x][obstacle.y]="X";
-        // }.bind(this));
-
-        // this.samples.forEach(function(sample){
-        //     this.field[sample.x][sample.y]=".";
-        // }.bind(this));
 
         this.mines.forEach(function (mine) {
             this.field[mine.x][mine.y] = "m";
@@ -128,7 +111,6 @@ let playingField = {
             try{
             switch (projectile.dir) {
                 case "N":
-                    // debugger
                     if (this.field[projectile.x][projectile.y + 1] === "-" && this.field[projectile.x][projectile.y + 1] !== "N"
                         && this.field[projectile.x][projectile.y + 1] !== "E" && this.field[projectile.x][projectile.y + 1] !== "S"
                         && this.field[projectile.x][projectile.y + 1] !== "W" && this.field[projectile.x][projectile.y + 1] !== "N2"
@@ -137,7 +119,6 @@ let playingField = {
                         this.field[projectile.x][projectile.y + 1] = "_";
                     }
                 case "E":
-                    // debugger
                     if (this.field[projectile.x - 1][projectile.y] === "-" && this.field[projectile.x - 1][projectile.y] !== "N"
                         && this.field[projectile.x - 1][projectile.y] !== "E" && this.field[projectile.x - 1][projectile.y] !== "S"
                         && this.field[projectile.x - 1][projectile.y] !== "W" && this.field[projectile.x - 1][projectile.y] !== "N2"
@@ -146,7 +127,6 @@ let playingField = {
                         this.field[projectile.x - 1][projectile.y] = "_";
                     }
                 case "S":
-                    // debugger
                     if (this.field[projectile.x][projectile.y - 1] === "-" && this.field[projectile.x][projectile.y - 1] !== "N"
                         && this.field[projectile.x][projectile.y - 1] !== "E" && this.field[projectile.x][projectile.y - 1] !== "S"
                         && this.field[projectile.x][projectile.y - 1] !== "W" && this.field[projectile.x][projectile.y - 1] !== "N2"
@@ -155,7 +135,6 @@ let playingField = {
                         this.field[projectile.x][projectile.y - 1] = "_";
                     }
                 case "W":
-                    // debugger
                     if (this.field[projectile.x + 1][projectile.y] === "-" && this.field[projectile.x + 1][projectile.y] !== "N"
                         && this.field[projectile.x + 1][projectile.y] !== "E" && this.field[projectile.x + 1][projectile.y] !== "S"
                         && this.field[projectile.x + 1][projectile.y] !== "W" && this.field[projectile.x + 1][projectile.y] !== "N2"

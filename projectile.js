@@ -40,7 +40,6 @@ Projectile.prototype.move = function () {
         if (!this.disable) {
             if (this.detectHit()) {
                 this.disable = true;
-                console.log("impact " + this.disable);
                 // playingField.projectiles.splice(this.projIndex, 1);
                 clearInterval(this.projInterval);
             }
@@ -61,7 +60,6 @@ Projectile.prototype.move = function () {
                 break;
         }
         playingField.updateAll();
-        console.log(playingField.projectiles)
     }.bind(this), 1000 / this.velocity);
 
 
@@ -94,9 +92,6 @@ Projectile.prototype.detectHit = function () {
             adjPos = [this.x - 1, this.y];
             break;
     }
-
-    console.log(adjSquare);
-    console.log(adjPos[0] + " " + adjPos[1]);
 
     switch (adjSquare) {
         case "_":
