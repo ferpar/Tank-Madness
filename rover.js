@@ -25,7 +25,10 @@ function Rover(x, y, dir, name) {
     this.reload = false
 
     this.shotAudio = new Audio()
-    this.shotAudio.src ="./Audio/shot.mp3"
+    this.shotAudio.src = "./Audio/shot.mp3"
+
+    this.xplAudio = new Audio()
+    this.xplAudio.src ="./Audio/explosion2.mp3"
 
 }
 
@@ -146,7 +149,7 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) == "rover") {
+            } else if (this.checkObstacles(false) === "rover") {
                 console.log("cannot move backwards: rover behind")
             } else {
                 console.log("cannot move rearwards: obstacle behind");
@@ -157,7 +160,7 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) == "rover") {
+            } else if (this.checkObstacles(false) === "rover") {
                 console.log("cannot move backwards: rover behind")
             } else {
                 console.log("cannot move rearwards: obstacle behind");
@@ -168,7 +171,7 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) == "rover") {
+            } else if (this.checkObstacles(false) === "rover") {
                 console.log("cannot move backwards: rover behind")
             } else {
                 console.log("cannot move rearwards: obstacle behind");
@@ -179,7 +182,7 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) == "rover") {
+            } else if (this.checkObstacles(false) === "rover") {
                 console.log("cannot move backwards: rover behind")
             } else {
                 console.log("cannot move rearwards: obstacle behind");
@@ -214,12 +217,12 @@ Rover.prototype.shoot = function () {
             break;
     }
 
-    if (!this.reload){
+    if (!this.reload) {
         this.projectile = new Projectile(this.projX, this.projY, this.dir, this.projVelocity, this.projRange, this.name);
         playingField.projectiles.push(this.projectile);
         playingField.updateAll();
         this.score -= this.projCost;
-        document.querySelector(`#${this.name}-points`).innerHTML = this.score;    
+        document.querySelector(`#${this.name}-points`).innerHTML = this.score;
         this.shotAudio.play();
     }
 
@@ -228,7 +231,7 @@ Rover.prototype.shoot = function () {
         this.reload = false;
     }.bind(this), 1000);
 
-    
+
 
 }
 
@@ -294,24 +297,16 @@ Rover.prototype.checkObstacles = function (sense) {
                 this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                     explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
 
-                // console.table(game.renderer.explosions);
 
                 playingField.mines.splice(this.mineIndex, 1);
 
                 setTimeout(() => { game.renderer.explosions.splice(that.xplIndex, 1); }, 1250);
 
-                // console.table(game.renderer.explosions);
-
-
-                // var StartingPositions = [[0, 0], [playingField.fieldSize[0], playingField.fieldSize[1]]];
-                // var newPos = StartingPositions[Math.floor(Math.random() * 2)];
-                // playingField.field[this.x][this.y] = "_";
-                // that.x=newPos[0];
-                // that.y=newPos[1];
-
                 setTimeout(() => { that.disabled = false }, 3000);
 
-                return false;
+                
+
+                return "m";
 
             default:
                 return true;

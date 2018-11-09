@@ -17,4 +17,9 @@ window.onload = function () {
     document.querySelector('#restart-button').onclick = function () {
         game.totalReset();
     }
+
+    document.querySelector('#overlay div').onclick = function () {
+        el = document.getElementById("overlay");
+        el.style.visibility = (el.style.visibility === "visible") ? "hidden" : "visible";
+    }
 }

@@ -8,6 +8,7 @@ function Renderer(dataModel) {
     this.counter = 0
 
     this.countdown = null
+    this.setCountdown=100;
 
     this.xplTrigger = false
     this.xplXCoord = 0
@@ -153,13 +154,30 @@ Renderer.prototype.renderCanvas = function () {
         // if (this.xplTrigger) {
         // this.renderExplosion(this.xplXCoord, this.xplYCoord);
         // }
-        this.countdown = 100 - Math.floor(this.counter/60)
+        this.countdown = this.setCountdown - Math.floor(this.counter/60)
         document.querySelector('.timer').innerHTML= "   " + this.countdown;
         this.counter++;
-        if (this.counter > 10000) clearInterval(this.intervalID);
+        if (this.counter > this.setCountdown*game.fps) clearInterval(this.intervalID);
 
     }.bind(this), 1000 / game.fps)
 
+    // setTimeout(function() {
+
+    // if (playingField.rovers[0].score > playingField.rovers[1].score) {
+    //     // winner =playingField.rovers[0].name;   
+    //     document.querySelector('#overlay div').innerHTML = `${Rover-label} Wins!!`
+    //     document.querySelector('#overlay').style.visibility = "visible"
+    // } else if (playingField.rovers[0].score < playingField.rovers[1].score){
+    //     document.querySelector('#overlay div').innerHTML = `${Rover2-label} is Victorious!!`
+    //     document.querySelector('#overlay').style.visibility = "visible"
+    // } else {
+    //     document.querySelector('#overlay div').innerHTML = `It's a Tie!!`
+    //     document.querySelector('#overlay').style.visibility = "visible"
+    // }
+        
+    // }.bind(this), 4500);
+    
+    
 }
 
 Renderer.prototype.renderBackground = function () {
@@ -240,6 +258,6 @@ Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
     );
 }
 
-Renderer.prototype.renderShell = function () {
+// Renderer.prototype.renderShell = function () {
 
-}
+// }
