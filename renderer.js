@@ -8,7 +8,7 @@ function Renderer(dataModel) {
     this.counter = 0
 
     this.countdown = null
-    this.setCountdown=100;
+    this.setCountdown = 100;
 
     this.xplTrigger = false
     this.xplXCoord = 0
@@ -114,7 +114,7 @@ Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the
                 case "m":
                     return "<div class=\"square \">m</div>";
                 case "-":
-                return "<div class=\"square obstacle\">-</div>";
+                    return "<div class=\"square obstacle\">-</div>";
 
             }
 
@@ -146,39 +146,110 @@ Renderer.prototype.renderCanvas = function () {
 
         this.renderBackground();
         this.renderData();
-        
-        this.explosions.forEach(function(explosion){
+
+        this.explosions.forEach(function (explosion) {
             this.renderExplosion(explosion.x, explosion.y);
         }.bind(this))
 
-        // if (this.xplTrigger) {
-        // this.renderExplosion(this.xplXCoord, this.xplYCoord);
-        // }
-        this.countdown = this.setCountdown - Math.floor(this.counter/60)
-        document.querySelector('.timer').innerHTML= "   " + this.countdown;
+        if (this.xplTrigger) {
+            this.renderExplosion(this.xplXCoord, this.xplYCoord);
+        }
+
+        this.countdown = this.setCountdown - Math.floor(this.counter / 60)
+        document.querySelector('.timer').innerHTML = "   " + this.countdown;
         this.counter++;
-        if (this.counter > this.setCountdown*game.fps) clearInterval(this.intervalID);
+
+        if (this.countdown === 0) { this.endMessage() };
+
+        if (this.counter > this.setCountdown * game.fps * 1.1) clearInterval(this.intervalID);
+
 
     }.bind(this), 1000 / game.fps)
 
-    // setTimeout(function() {
-
-    // if (playingField.rovers[0].score > playingField.rovers[1].score) {
-    //     // winner =playingField.rovers[0].name;   
-    //     document.querySelector('#overlay div').innerHTML = `${Rover-label} Wins!!`
-    //     document.querySelector('#overlay').style.visibility = "visible"
-    // } else if (playingField.rovers[0].score < playingField.rovers[1].score){
-    //     document.querySelector('#overlay div').innerHTML = `${Rover2-label} is Victorious!!`
-    //     document.querySelector('#overlay').style.visibility = "visible"
-    // } else {
-    //     document.querySelector('#overlay div').innerHTML = `It's a Tie!!`
-    //     document.querySelector('#overlay').style.visibility = "visible"
-    // }
-        
-    // }.bind(this), 4500);
-    
-    
 }
+
+Renderer.prototype.endMessage = function() {
+    debugger
+    var winner;
+    if (playingField.rovers[0].score > playingField.rovers[1].score) {
+        winner = document.querySelector('.Rover-label').innerHTML;
+        this.ctx.font = '80px Monoton';
+        this.ctx.strokeStyle = 'green';
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.lineWidth = 20;
+        this.ctx.textAlign = 'center';
+        this.ctx.strokeText(
+            `${winner} is victorious!!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+        this.ctx.fillText(
+            `${winner} is victorious!!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+    } else if (playingField.rovers[0].score < playingField.rovers[1].score) {
+        winner = document.querySelector('.Rover2-label').innerHTML;
+        this.ctx.font = '80px Monoton';
+        this.ctx.strokeStyle = 'green';
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.lineWidth = 20;
+        this.ctx.textAlign = 'center';
+        this.ctx.strokeText(
+            `${winner} wins!!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+        this.ctx.fillText(
+            `${winner} wins!!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+    } else {
+        document.querySelector('#overlay div').innerHTML = `It's a Tie!!`
+        this.ctx.font = '80px Monoton';
+        this.ctx.strokeStyle = 'green';
+        this.ctx.fillStyle = 'yellow';
+        this.ctx.lineWidth = 60;
+        this.ctx.textAlign = 'center';
+        this.ctx.strokeText(
+            `TIE!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+        this.ctx.fillText(
+            `TIE!`,
+            this.canvas.width / 2,
+            this.canvas.height / 2,
+        );
+    }
+}
+
+// function Winner(id, winner) {
+//     const canvas = document.getElementById(id);
+//     const ctx = canvas.getContext('2d');
+//     ctx.font = '80px Sigmar One';
+//     ctx.strokeStyle = 'red';
+//     ctx.fillStyle = 'yellow';
+//     ctx.lineWidth = 60;
+//     ctx.textAlign = 'center';
+//     ctx.strokeText(
+//         `PLAYERS ${winner} WINS`,
+//         canvas.width / 2,
+//         canvas.height / 2,
+//     );
+//     ctx.fillText(
+//         `PLAYERS ${winner} WINS`,
+//         canvas.width / 2,
+//         canvas.height / 2,
+//     );
+// }
+
+
+
+
+
+
 
 Renderer.prototype.renderBackground = function () {
 

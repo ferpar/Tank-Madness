@@ -21,5 +21,7 @@ window.onload = function () {
     document.querySelector('#overlay div').onclick = function () {
         el = document.getElementById("overlay");
         el.style.visibility = (el.style.visibility === "visible") ? "hidden" : "visible";
+        document.querySelector('#start-button').focus();
+
     }
 }
