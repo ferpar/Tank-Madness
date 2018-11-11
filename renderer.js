@@ -221,31 +221,6 @@ Renderer.prototype.endMessage = function() {
     }
 }
 
-// function Winner(id, winner) {
-//     const canvas = document.getElementById(id);
-//     const ctx = canvas.getContext('2d');
-//     ctx.font = '80px Sigmar One';
-//     ctx.strokeStyle = 'red';
-//     ctx.fillStyle = 'yellow';
-//     ctx.lineWidth = 60;
-//     ctx.textAlign = 'center';
-//     ctx.strokeText(
-//         `PLAYERS ${winner} WINS`,
-//         canvas.width / 2,
-//         canvas.height / 2,
-//     );
-//     ctx.fillText(
-//         `PLAYERS ${winner} WINS`,
-//         canvas.width / 2,
-//         canvas.height / 2,
-//     );
-// }
-
-
-
-
-
-
 
 Renderer.prototype.renderBackground = function () {
 
@@ -292,8 +267,6 @@ Renderer.prototype.renderData = function () {
         }
 
     }
-    // debugger
-    // this.ctx.drawImage(this.obstImg,100,100,100,100);
 
     for (i = 0; i < playingField.fieldSize[0] + 1; i++) {
         for (j = 0; j < playingField.fieldSize[1] + 1; j++) {
@@ -324,7 +297,3 @@ Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
         this.tileH * 1,
     );
 }
-
-// Renderer.prototype.renderShell = function () {
-
-// }

@@ -267,7 +267,7 @@ Rover.prototype.checkObstacles = function (sense) {
             case undefined:
                 return true;
             case "m":
-
+                debugger
                 this.mineIndex = playingField.mines.findIndex(function (mine) {
                     return (mine.x === obstPos[0] && mine.y === obstPos[1])
                 });
@@ -290,16 +290,14 @@ Rover.prototype.checkObstacles = function (sense) {
                 this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                     explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
 
-
                 playingField.mines.splice(this.mineIndex, 1);
 
-                setTimeout(() => { game.renderer.explosions.splice(that.xplIndex, 1); }, 1250);
+                setTimeout(() => { game.renderer.explosions.splice(that.xplIndex, 1);
+                    game.renderer.explosions=[] }, 1250);
 
                 setTimeout(() => { that.disabled = false }, 3000);
 
-                
-
-                return "false";
+                return false;
 
             default:
                 return true;

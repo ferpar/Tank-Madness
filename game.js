@@ -24,14 +24,14 @@ let game = {
     this.keyListener();
 
     this.theme.src = "./Audio/Theme.mp3";
-    this.theme.play()
+    // this.theme.play()
 
   },
 
   reset: function () {
     //stop the renderer
     if (this.CanvasRenderer) this.renderer.stopCanvasRender();
-    //manage all collections: rovers remain, samples and obstacles are
+    //manage all collections: rovers remain; samples, obstacles, mines and projectiles are emptied.
     playingField.field = [];
     playingField.obstacles = [];
     playingField.samples = [];

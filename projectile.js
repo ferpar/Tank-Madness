@@ -128,12 +128,8 @@ Projectile.prototype.detectHit = function () {
             this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                 explosion.x === playingField.rovers[this.targetIndex].x && explosion.y === playingField.rovers[this.targetIndex].y);
 
-            // console.table(game.renderer.explosions);
-
             setTimeout(function () { game.renderer.explosions.splice(this.xplIndex, 1); }.bind(this), 1250);
 
-            // console.table(game.renderer.explosions);
-            // debugger
             var StartingPositions = [[0, 0], [playingField.fieldSize[0], playingField.fieldSize[1]]];
             var newPos = StartingPositions[Math.floor(Math.random() * 2)];
 
@@ -165,11 +161,8 @@ Projectile.prototype.detectHit = function () {
 
             setTimeout(function () { game.renderer.explosions.pop();
                 game.renderer.explosions = [] ; }.bind(this), 2000);
-            this.xplAudio.play()
+            this.xplAudio.play();
             
-
-            // case undefined:
-            // default:
             return true;
     }
 
@@ -194,7 +187,7 @@ Projectile.prototype.checkLimits = function () {
             adjPos = [this.x - 1, this.y];
             break;
     }
-    // debugger
+
     if (adjPos[0] > playingField.fieldSize[0] || adjPos[0] < 0 || adjPos[1] > playingField.fieldSize[1] || adjPos[1] < 0) {
         return true;
     }
