@@ -147,18 +147,13 @@ Renderer.prototype.renderCanvas = function () {
             this.renderExplosion(explosion.x, explosion.y);
         }.bind(this))
 
-        if (this.xplTrigger) {
-            this.renderExplosion(this.xplXCoord, this.xplYCoord);
-        }
-
         this.countdown = this.setCountdown - Math.floor(this.counter / 60)
         document.querySelector('.timer').innerHTML = "   " + this.countdown;
         this.counter++;
 
-        if (this.countdown === 0) { this.endMessage() };
-
-        if (this.counter > this.setCountdown * game.fps * 1.1) clearInterval(this.intervalID);
-
+        if (this.countdown === 0) { 
+            this.endMessage();
+            clearInterval(this.intervalID); };
 
     }.bind(this), 1000 / game.fps)
 
@@ -206,7 +201,7 @@ Renderer.prototype.endMessage = function() {
         this.ctx.font = '80px Monoton';
         this.ctx.strokeStyle = 'green';
         this.ctx.fillStyle = 'yellow';
-        this.ctx.lineWidth = 60;
+        this.ctx.lineWidth = 20;
         this.ctx.textAlign = 'center';
         this.ctx.strokeText(
             `TIE!`,
