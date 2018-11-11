@@ -64,6 +64,8 @@ function Renderer(dataModel) {
 
     this.shellImg = new Image()
     this.shellImg.src = "./images/shellUniv.svg"
+
+    this.sampleCounter = 0;
     
 
 }
@@ -148,6 +150,14 @@ Renderer.prototype.renderCanvas = function () {
             this.renderExplosion(explosion.x, explosion.y);
         }.bind(this))
 
+        //this code is for constantly generating new samples
+        this.sampleCounter++
+
+        if (Math.floor(this.sampleCounter/60) > 0) {
+            this.sampleCounter = 0;
+            playingField.genSamples(1)
+        }
+        
         this.countdown = this.setCountdown - Math.floor(this.counter / 60)
         document.querySelector('.timer').innerHTML = "   " + this.countdown;
         this.counter++;
