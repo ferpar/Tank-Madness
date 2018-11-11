@@ -64,6 +64,7 @@ function Renderer(dataModel) {
 
     this.shellImg = new Image()
     this.shellImg.src = "./images/shellUniv.svg"
+    
 
 }
 
@@ -291,4 +292,6 @@ Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
         this.tileW * 1,
         this.tileH * 1,
     );
+
+
 }

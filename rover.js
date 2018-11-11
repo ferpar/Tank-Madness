@@ -267,10 +267,10 @@ Rover.prototype.checkObstacles = function (sense) {
             case undefined:
                 return true;
             case "m":
-                debugger
                 this.mineIndex = playingField.mines.findIndex(function (mine) {
                     return (mine.x === obstPos[0] && mine.y === obstPos[1])
                 });
+
 
                 that.disabled = true;
 
@@ -284,8 +284,9 @@ Rover.prototype.checkObstacles = function (sense) {
                 mineOwner.score += that.mineScore;
                 document.querySelector(`#${ownerName}-points`).innerHTML = mineOwner.score;
 
-
                 game.renderer.explosions.push({ x: playingField.mines[this.mineIndex].x, y: playingField.mines[this.mineIndex].y });
+
+                that.xplAudio.play();
 
                 this.xplIndex = game.renderer.explosions.findIndex((explosion) =>
                     explosion.x === playingField.mines[this.mineIndex].x && explosion.y === playingField.mines[this.mineIndex].y);
