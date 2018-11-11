@@ -70,10 +70,9 @@ Projectile.prototype.move = function () {
 }
 
 Projectile.prototype.detectHit = function () {
-    //here the projectile will be removed from the collection.
+    
     var adjSquare
     var adjPos
-    // debugger
     switch (this.dir) {
         case "N":
             adjSquare = playingField.field[this.x][this.y - 1];

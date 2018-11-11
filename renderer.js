@@ -84,7 +84,7 @@ Renderer.prototype.createCanvas = function () {
 }
 
 
-Renderer.prototype.renderHTML = function () { // !!!! Adapt this renderer to the new model !!!!
+Renderer.prototype.renderHTML = function () { 
 
     if (!game.CanvasRenderer) {
 
@@ -280,7 +280,6 @@ Renderer.prototype.stopCanvasRender = function () {
 }
 
 Renderer.prototype.renderExplosion = function (xCoord, yCoord) {
-    // debugger
     this.ctx.drawImage(
         this.xplImg,
         Math.floor((this.counter % 50) / 10) * 65,

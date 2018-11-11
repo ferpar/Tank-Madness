@@ -88,10 +88,6 @@ Rover.prototype.moveAhead = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(true) === "rover") {
-                // console.log("cannot move forward: rover ahead")
-            } else {
-                // console.log("cannot move forward: obstacle ahead");
             }
             break;
         case "E":
@@ -99,10 +95,6 @@ Rover.prototype.moveAhead = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(true) === "rover") {
-                // console.log("cannot move forward: rover ahead")
-            } else {
-                // console.log("cannot move forward: obstacle ahead");
             }
             break;
         case "S":
@@ -110,10 +102,6 @@ Rover.prototype.moveAhead = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(true) === "rover") {
-                // console.log("cannot move forward: rover ahead")
-            } else {
-                // console.log("cannot move forward: obstacle ahead");
             }
             break;
         case "W":
@@ -121,16 +109,9 @@ Rover.prototype.moveAhead = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(true) === "rover") {
-                // console.log("cannot move forward: rover ahead")
-            } else {
-                // console.log("cannot move forward: obstacle ahead");
             }
             break;
     }
-
-
-
 }
 
 Rover.prototype.moveBack = function () {
@@ -143,10 +124,6 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) === "rover") {
-                // console.log("cannot move backwards: rover behind")
-            } else {
-                // console.log("cannot move rearwards: obstacle behind");
             }
             break;
         case "E":
@@ -154,10 +131,6 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) === "rover") {
-                // console.log("cannot move backwards: rover behind")
-            } else {
-                // console.log("cannot move rearwards: obstacle behind");
             }
             break;
         case "S":
@@ -165,10 +138,6 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.y -= 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) === "rover") {
-                // console.log("cannot move backwards: rover behind")
-            } else {
-                // console.log("cannot move rearwards: obstacle behind");
             }
             break;
         case "W":
@@ -176,18 +145,9 @@ Rover.prototype.moveBack = function () {
                 playingField.field[this.x][this.y] = "_";
                 this.x += 1;
                 playingField.updateAll();
-            } else if (this.checkObstacles(false) === "rover") {
-                // console.log("cannot move backwards: rover behind")
-            } else {
-                // console.log("cannot move rearwards: obstacle behind");
             }
             break;
     }
-
-    // console.log("Rover's new position>: [ " + this.x + ", " + this.y + "]");
-
-
-
 }
 
 Rover.prototype.shoot = function () {

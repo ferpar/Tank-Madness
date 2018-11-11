@@ -24,7 +24,7 @@ let game = {
     this.keyListener();
 
     this.theme.src = "./Audio/Theme.mp3";
-    // this.theme.play()
+    this.theme.play()
 
   },
 
@@ -51,8 +51,6 @@ let game = {
   },
 
   keyListener: function () {
-
-    
 
     document.onkeydown = function (event) {
 
