@@ -66,6 +66,7 @@ function Renderer(dataModel) {
     this.shellImg.src = "./images/shellUniv.svg"
 
     this.sampleCounter = 0;
+    this.secondsPerSample = 120;
     
 
 }
@@ -153,7 +154,7 @@ Renderer.prototype.renderCanvas = function () {
         //this code is for constantly generating new samples
         this.sampleCounter++
 
-        if (Math.floor(this.sampleCounter/60) > 0) {
+        if (Math.floor(this.sampleCounter/this.secondsPerSample) > 0) {
             this.sampleCounter = 0;
             playingField.genSamples(1)
         }

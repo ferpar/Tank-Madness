@@ -68,7 +68,11 @@ let playingField = {
             do {
                 obstX = Math.floor(Math.random() * (this.fieldSize[0] + 1));
                 obstY = Math.floor(Math.random() * (this.fieldSize[1] + 1));
-            } while (obstX == this.rovers[0].x && obstY == this.rovers[0].y || obstX == this.rovers[1].x && obstY == this.rovers[1].y || this.field[obstX][obstY] == "X" || this.field[obstX][obstY] == ".")
+            } while (obstX == this.rovers[0].x && obstY == this.rovers[0].y 
+                || obstX == this.rovers[1].x && obstY == this.rovers[1].y 
+                || this.field[obstX][obstY] == "X" 
+                || this.field[obstX][obstY] == "."
+                || this.field[obstX][obstY] == "m")
             this.field[obstX][obstY] = "X";
             // var obst = {x:obstX,y:obstY};
             var obst = new Obstacle(obstX, obstY);
@@ -89,7 +93,11 @@ let playingField = {
             do {
                 sampleX = Math.floor(Math.random() * (this.fieldSize[0] + 1));
                 sampleY = Math.floor(Math.random() * (this.fieldSize[1] + 1));
-            } while (sampleX == this.rovers[0].x && sampleY == this.rovers[0].y || sampleX == this.rovers[1].x && sampleY == this.rovers[1].y || this.field[sampleX][sampleY] == "X" || this.field[sampleX][sampleY] == ".")
+            } while (sampleX == this.rovers[0].x && sampleY == this.rovers[0].y 
+                || sampleX == this.rovers[1].x && sampleY == this.rovers[1].y 
+                || this.field[sampleX][sampleY] == "X" 
+                || this.field[sampleX][sampleY] == "."
+                || this.field[sampleX][sampleY] == "m")
             this.field[sampleX][sampleY] = ".";
             var samp = new Sample(sampleX, sampleY);
             this.samples.push(samp);
