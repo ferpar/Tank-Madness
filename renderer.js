@@ -65,9 +65,10 @@ function Renderer(dataModel) {
     this.shellImg = new Image()
     this.shellImg.src = "./images/shellUniv.svg"
 
+    this.dynamicSamples = true;
     this.sampleCounter = 0;
     this.secondsPerSample = 120;
-    
+
 
 }
 
@@ -87,7 +88,7 @@ Renderer.prototype.createCanvas = function () {
 }
 
 
-Renderer.prototype.renderHTML = function () { 
+Renderer.prototype.renderHTML = function () {
 
     if (!game.CanvasRenderer) {
 
@@ -152,26 +153,28 @@ Renderer.prototype.renderCanvas = function () {
         }.bind(this))
 
         //this code is for constantly generating new samples
-        this.sampleCounter++
-
-        if (Math.floor(this.sampleCounter/this.secondsPerSample) > 0) {
-            this.sampleCounter = 0;
-            playingField.genSamples(1)
+        if (this.dynamicSamples) {
+            this.sampleCounter++
+            if (Math.floor(this.sampleCounter / this.secondsPerSample) > 0) {
+                this.sampleCounter = 0;
+                playingField.genSamples(1)
+            }
         }
-        
+
         this.countdown = this.setCountdown - Math.floor(this.counter / 60)
         document.querySelector('.timer').innerHTML = "   " + this.countdown;
         this.counter++;
 
-        if (this.countdown === 0) { 
+        if (this.countdown === 0) {
             this.endMessage();
-            clearInterval(this.intervalID); };
+            clearInterval(this.intervalID);
+        };
 
     }.bind(this), 1000 / game.fps)
 
 }
 
-Renderer.prototype.endMessage = function() {
+Renderer.prototype.endMessage = function () {
     debugger
     var winner;
     if (playingField.rovers[0].score > playingField.rovers[1].score) {
